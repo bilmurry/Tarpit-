@@ -155,7 +155,7 @@ select{padding:9px 10px;border-radius:999px;border:1px solid var(--line);backgro
           <div class="door-head"><b>🔐 Acme IAM — Sign in</b><span>test-iam.local</span></div>
           <div class="door-body">
             <form id="legitForm">
-              <label for="email">Email</label><input id="email" type="email" placeholder="you@company.com" autocomplete="off" value="jacob@company.com"/>
+              <label for="email">Email</label><input id="email" type="email" placeholder="you@company.com" autocomplete="off" value="you@company.com"/>
               <label for="pw">Password</label><input id="pw" type="password" placeholder="••••••••••" value="demo-password"/>
               <button class="btn btn-dark" style="width:100%" type="submit">Sign in as legit user →</button>
               <p style="font-size:12px;color:var(--muted);margin:8px 0 0;line-height:1.45">Try it — your own sign-in goes through Tarpit too, and should score low. Test door only, nothing leaves this page.</p>
@@ -341,10 +341,10 @@ async function launchLdap(){
 async function launchLegit(){
   log('[user] legit OIDC login — human timing, full sequence','g');
   await seq([
-    {label:'Legit User · Jacob',origin:'72.14.199.8 (your network)',ua:'Safari / iPhone',ep:'wellknown',method:'GET',campaign:null,seqIndex:0,didDiscovery:true,legit:true,gap:1100},
-    {label:'Legit User · Jacob',origin:'72.14.199.8 (your network)',ua:'Safari / iPhone',ep:'authorize',method:'GET',campaign:null,seqIndex:1,didDiscovery:true,didAuthorize:true,legit:true,gap:1500},
-    {label:'Legit User · Jacob',origin:'72.14.199.8 (your network)',ua:'Safari / iPhone',ep:'token',method:'POST',campaign:null,seqIndex:2,didDiscovery:true,didAuthorize:true,legit:true,gap:900},
-    {label:'Legit User · Jacob',origin:'72.14.199.8 (your network)',ua:'Safari / iPhone',ep:'userinfo',method:'GET',campaign:null,seqIndex:3,didDiscovery:true,didAuthorize:true,legit:true}
+    {label:'Legit User',origin:'72.14.199.8 (your network)',ua:'Safari / iPhone',ep:'wellknown',method:'GET',campaign:null,seqIndex:0,didDiscovery:true,legit:true,gap:1100},
+    {label:'Legit User',origin:'72.14.199.8 (your network)',ua:'Safari / iPhone',ep:'authorize',method:'GET',campaign:null,seqIndex:1,didDiscovery:true,didAuthorize:true,legit:true,gap:1500},
+    {label:'Legit User',origin:'72.14.199.8 (your network)',ua:'Safari / iPhone',ep:'token',method:'POST',campaign:null,seqIndex:2,didDiscovery:true,didAuthorize:true,legit:true,gap:900},
+    {label:'Legit User',origin:'72.14.199.8 (your network)',ua:'Safari / iPhone',ep:'userinfo',method:'GET',campaign:null,seqIndex:3,didDiscovery:true,didAuthorize:true,legit:true}
   ]);
 }
 $('legitForm').addEventListener('submit',function(e){e.preventDefault(); launchLegit();});
