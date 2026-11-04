@@ -1,0 +1,36 @@
+services:
+  fake-iam:
+    image: python:3.12-slim
+    command: python /app/fake_iam.py
+    volumes:
+      - ./:/app
+      - ./data:/data
+    networks:
+      - trapnet
+
+  gateway:
+    image: python:3.12-slim
+    command: python /app/gateway.py
+    volumes:
+      - ./:/app
+      - ./data:/data
+    ports:
+      - "8080:8080"
+    depends_on:
+      - fake-iam
+    networks:
+      - trapnet
+
+  attacker:
+    image: python:3.12-slim
+    command: python /app/attacker.py
+    volumes:
+      - ./:/app
+    depends_on:
+      - gateway
+    networks:
+      - trapnet
+
+networks:
+  trapnet:
+    internal: true
