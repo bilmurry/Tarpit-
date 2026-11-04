@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <style>
+    body { width: 340px; font-family: system-ui, sans-serif; margin: 0; padding: 12px; }
+    h1 { font-size: 16px; margin: 0 0 4px; }
+    .mode { font-size: 12px; color: #065f46; background: #d1fae5; padding: 4px 8px; border-radius: 999px; display: inline-block; }
+    .card { border: 1px solid #e5e7eb; border-radius: 8px; padding: 10px; margin-top: 10px; }
+    .risk { font-weight: 700; }
+    .alarm { color: #dc2626; font-weight: 700; }
+    button { margin-top: 8px; padding: 6px 10px; border-radius: 6px; border: 1px solid #dc2626; background: #fff; color: #dc2626; cursor: pointer; }
+    button:hover { background: #fef2f2; }
+    .muted { color: #6b7280; font-size: 12px; }
+  </style>
+</head>
+<body>
+  <h1>Tarpit — Passive Monitor</h1>
+  <span class="mode">Monitor-only by default</span>
+  <p class="muted">Tarpit watches, fingerprints, and alarms. It never removes on its own — you decide.</p>
+  <div id="list"><p class="muted">No attempted intrusions seen yet.</p></div>
+  <p class="muted">Tip: open the <a href="https://muse.ai/s/tarpit-demo-xej6xobunxxxpro/KSymWe6DlapKUl0cLSeL6ZOhTeyYergJ8Eozs7kkpsI" target="_blank">public Tarpit demo</a> to see a full swarm run.</p>
+  <script src="popup.js"></script>
+</body>
+</html>

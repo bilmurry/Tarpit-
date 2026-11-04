@@ -1,0 +1,34 @@
+{
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Tarpit"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "js": [
+        "content.js"
+      ],
+      "matches": [
+        "<all_urls>"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+  "description": "Passive monitoring for rogue agents attempting to gain access via IAM. Fingerprints, scores, traces, and alarms on attempted intrusion. Monitor-only by default \u2014 you decide whether to remove.",
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "manifest_version": 3,
+  "name": "Tarpit \u2014 Passive Agent Monitor",
+  "permissions": [
+    "tabs",
+    "storage",
+    "scripting",
+    "notifications",
+    "alarms"
+  ],
+  "version": "1.0.0"
+}
