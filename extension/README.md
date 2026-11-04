@@ -20,8 +20,5 @@ Super easy to use, Monitor-only by default.
 - `content.js` — passive observer on IAM pages, reports attempt signals only
 - `popup.html` / `popup.js` — alarm list, trace, and Remove / Hold / Release decision
 
-## iPhone / Safari
-Chrome extensions don't run on iPhone Safari as-is. To get this on iPhone, convert it to a Safari Web Extension inside an iOS app (Xcode, Apple Developer account $99/yr). The logic in `background.js` / `content.js` carries over — only the packaging changes.
-
 ## Liability model
 Monitor-only by default. Enforcement is an explicit operator decision, logged with timestamp. Use only on systems you own or are authorized to protect.
