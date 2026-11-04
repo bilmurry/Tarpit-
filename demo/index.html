@@ -5,213 +5,210 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="light dark">
 <link rel="icon" href="data:,">
-<title>Tarpit Demo — Catch Rogue AI Agents Before IAM</title>
+<title>Tarpit Demo — Stop Unauthorized AI Bots Before They Get In</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#f4f2ed; --surface:#ffffff; --surface2:#ece9e2; --ink:#14161a; --muted:#5b6472; --line:#ddd8cd;
-  --accent:#b45309; --accent2:#f59e0b; --danger:#b91c1c; --ok:#0f766e; --warn:#92400e;
-  --console:#0c0f14; --console2:#12161f; --console-line:#232a36; --console-ink:#e8ecf1; --console-muted:#8b96a8;
-  --radius:18px;
+  --bg:#f7f5f0; --surface:#ffffff; --surface2:#efede7; --ink:#17191d; --muted:#4b5563; --line:#ddd8cd;
+  --accent:#b45309; --accent2:#f59e0b;
+  --console:#11151c; --console2:#181d27; --console-line:#2a3140; --console-ink:#f1f4f8; --console-muted:#aeb9c6;
 }
 @media (prefers-color-scheme: dark){
-  :root{ --bg:#0a0c10; --surface:#12151c; --surface2:#1a1e28; --ink:#edf0f4; --muted:#9aa3b2; --line:#262c38; --accent:#f59e0b; }
+  :root{ --bg:#0b0d11; --surface:#141821; --surface2:#1c212e; --ink:#eef1f5; --muted:#a7b0bf; --line:#262c38; --accent:#f59e0b; }
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;font-family:"IBM Plex Sans",system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55}
+body{margin:0;font-family:"IBM Plex Sans",system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;font-size:17px}
 a{color:inherit}
-.mono{font-family:"IBM Plex Mono",monospace}
-.wrap{max-width:1140px;margin:0 auto;padding:0 20px}
-.topbar{display:flex;justify-content:space-between;align-items:center;padding:18px 0;font-size:13px;letter-spacing:.06em;text-transform:uppercase;font-weight:700}
-.topbar span{color:var(--muted);font-weight:500;text-transform:none;letter-spacing:0}
-.hero{padding:28px 0 18px}
-.eyebrow{display:inline-flex;gap:8px;align-items:center;background:var(--surface);border:1px solid var(--line);padding:7px 11px;border-radius:999px;font-size:12.5px;font-weight:600}
-.dot{width:8px;height:8px;border-radius:50%;background:#22c55e;box-shadow:0 0 0 4px rgba(34,197,94,.15)}
-h1{font-size:clamp(38px,6vw,68px);line-height:.95;letter-spacing:-.03em;margin:18px 0 14px;max-width:820px}
+.wrap{max-width:980px;margin:0 auto;padding:0 20px}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:18px 0;font-size:14px;font-weight:700}
+.topbar span{color:var(--muted);font-weight:500}
+.hero{padding:22px 0 10px}
+.eyebrow{display:inline-flex;gap:8px;align-items:center;background:var(--surface);border:1px solid var(--line);padding:8px 12px;border-radius:999px;font-size:14px;font-weight:600}
+.dot{width:9px;height:9px;border-radius:50%;background:#22c55e;flex:none}
+h1{font-size:clamp(36px,6vw,60px);line-height:1.02;letter-spacing:-.02em;margin:18px 0 14px;max-width:760px}
 h1 em{font-style:normal;color:var(--accent)}
-.lede{font-size:19px;color:var(--muted);max-width:720px;margin:0}
+.lede{font-size:20px;color:var(--muted);max-width:700px;margin:0}
 .hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}
-.btn{appearance:none;border:0;cursor:pointer;padding:14px 20px;border-radius:999px;font-weight:700;font-size:15px;text-decoration:none;display:inline-flex;align-items:center;gap:8px}
-.btn-primary{background:#14161a;color:#fff}
+.btn{appearance:none;border:0;cursor:pointer;padding:15px 22px;border-radius:999px;font-weight:700;font-size:16px;text-decoration:none;display:inline-flex;align-items:center;gap:8px}
+.btn-primary{background:#17191d;color:#fff}
 @media(prefers-color-scheme:dark){.btn-primary{background:#f59e0b;color:#111}}
 .btn-ghost{background:transparent;border:1px solid var(--line);color:var(--ink)}
 .btn-amber{background:var(--accent2);color:#111}
-.case{margin-top:28px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px;display:grid;grid-template-columns:1.2fr .8fr;gap:18px}
-.case h3{margin:0 0 6px;font-size:15px}
-.case p{margin:0;color:var(--muted);font-size:14.5px}
-.case-stats{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.stat{background:var(--surface2);border-radius:12px;padding:12px}
-.stat b{display:block;font-size:20px;line-height:1}
-.stat span{font-size:12px;color:var(--muted)}
+.case{margin-top:28px;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:20px}
+.case h3{margin:0 0 8px;font-size:18px}
+.case p{margin:0;color:var(--muted)}
+.case-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px}
+.stat{background:var(--surface2);border-radius:12px;padding:14px}
+.stat b{display:block;font-size:24px;line-height:1.1}
+.stat span{font-size:13.5px;color:var(--muted);line-height:1.35;display:block;margin-top:2px}
 
-/* Console */
-.console{margin:26px 0;background:var(--console);color:var(--console-ink);border-radius:22px;overflow:hidden;border:1px solid #1e2530;box-shadow:0 20px 50px rgba(0,0,0,.25)}
-.console-head{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;padding:16px 18px;border-bottom:1px solid var(--console-line);background:var(--console2)}
-.console-head strong{font-size:15px}
-.console-head small{color:var(--console-muted)}
-.mode{display:flex;background:#0a0d12;border:1px solid var(--console-line);border-radius:999px;padding:3px}
-.mode button{border:0;background:transparent;color:var(--console-muted);padding:7px 12px;border-radius:999px;font-weight:700;cursor:pointer;font-size:13px}
-.mode button.active{background:var(--accent2);color:#111}
-.console-grid{display:grid;grid-template-columns:340px 1fr}
+/* Demo box */
+.console{margin:28px 0;background:var(--console);color:var(--console-ink);border-radius:20px;overflow:hidden;border:1px solid #1e2530}
+.console-head{padding:18px;border-bottom:1px solid var(--console-line);background:var(--console2)}
+.console-head strong{font-size:18px;display:block}
+.console-head small{color:var(--console-muted);font-size:14.5px}
+.mode{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.mode button{border:1px solid var(--console-line);background:#0b0f16;color:var(--console-muted);padding:11px 16px;border-radius:999px;font-weight:700;cursor:pointer;font-size:15px}
+.mode button.active{background:var(--accent2);color:#111;border-color:var(--accent2)}
+.console-grid{display:grid;grid-template-columns:320px 1fr}
 .left{padding:18px;border-right:1px solid var(--console-line)}
-.left label{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--console-muted);font-weight:700}
+.left label{font-size:14px;color:var(--console-muted);font-weight:700;display:block;margin-bottom:4px}
 .scenarios{display:grid;gap:9px;margin-top:10px}
-.scen{width:100%;text-align:left;background:#151a24;border:1px solid var(--console-line);color:var(--console-ink);padding:13px;border-radius:14px;cursor:pointer}
-.scen.active{border-color:var(--accent2);background:#1d1a12}
-.scen b{display:block;font-size:14.5px}
-.scen span{font-size:13px;color:var(--console-muted);line-height:1.4;display:block;margin-top:2px}
-.run-btn{width:100%;margin-top:16px;padding:15px;border-radius:12px;border:0;background:var(--accent2);color:#111;font-weight:800;font-size:15px;cursor:pointer}
+.scen{width:100%;text-align:left;background:#161c28;border:1px solid var(--console-line);color:var(--console-ink);padding:14px;border-radius:14px;cursor:pointer}
+.scen.active{border-color:var(--accent2);background:#231d10}
+.scen b{display:block;font-size:16px}
+.scen span{font-size:14px;color:var(--console-muted);line-height:1.45;display:block;margin-top:3px}
+.run-btn{width:100%;margin-top:16px;padding:16px;border-radius:12px;border:0;background:var(--accent2);color:#111;font-weight:800;font-size:17px;cursor:pointer}
 .run-btn:disabled{opacity:.6;cursor:wait}
-.note{font-size:12.5px;color:var(--console-muted);margin-top:10px}
+.note{font-size:14px;color:var(--console-muted);margin-top:12px;line-height:1.55}
 .right{padding:18px;min-width:0}
 .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
-.tab{border:1px solid var(--console-line);background:transparent;color:var(--console-muted);padding:8px 12px;border-radius:999px;cursor:pointer;font-weight:600;font-size:13px}
+.tab{border:1px solid var(--console-line);background:transparent;color:var(--console-muted);padding:10px 14px;border-radius:999px;cursor:pointer;font-weight:600;font-size:14.5px}
 .tab.active{background:#fff;color:#111;border-color:#fff}
 .panel{display:none}.panel.active{display:block}
-.terminal{background:#07090d;border:1px solid var(--console-line);border-radius:14px;padding:14px;min-height:188px;font-family:"IBM Plex Mono",monospace;font-size:12.8px;line-height:1.7;overflow:auto}
-.terminal .muted{color:#7d8aa0}.terminal .amber{color:#fbbf24}.terminal .red{color:#f87171}.terminal .green{color:#34d399}
-.result{margin-top:14px;display:grid;grid-template-columns:110px 1fr;gap:16px;align-items:start;background:#151a24;border:1px solid var(--console-line);border-radius:14px;padding:16px}
+.terminal{background:#07090d;border:1px solid var(--console-line);border-radius:14px;padding:16px;min-height:170px;font-size:15.5px;line-height:1.65}
+.terminal div{margin-bottom:4px}
+.terminal .muted{color:#93a1b5}.terminal .amber{color:#fcd34d}.terminal .red{color:#fca5a5}.terminal .green{color:#6ee7b7}
+.result{margin-top:14px;display:grid;grid-template-columns:104px 1fr;gap:16px;align-items:start;background:#161c28;border:1px solid var(--console-line);border-radius:14px;padding:16px}
 .risk-ring{width:96px;height:96px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--accent2) 0deg, #2a3342 0deg);position:relative}
-.risk-ring::after{content:"";position:absolute;inset:8px;background:#151a24;border-radius:50%}
+.risk-ring::after{content:"";position:absolute;inset:8px;background:#161c28;border-radius:50%}
 .risk-ring b{position:relative;z-index:1;font-size:28px;line-height:1}
-.risk-ring small{position:relative;z-index:1;font-size:11px;color:var(--console-muted);display:block;text-align:center}
-.verdict{display:inline-flex;padding:4px 9px;border-radius:999px;font-size:12px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;background:#2a1414;color:#fca5a5;border:1px solid #7f1d1d}
+.risk-ring small{position:relative;z-index:1;font-size:10.5px;color:var(--console-muted);display:block;text-align:center;letter-spacing:.04em}
+.verdict{display:inline-flex;padding:5px 11px;border-radius:999px;font-size:13px;font-weight:800;letter-spacing:.02em;background:#3a1717;color:#fca5a5;border:1px solid #7f1d1d}
 .verdict.pass{background:#0f2e2a;color:#6ee7b7;border-color:#134e4a}
-.verdict.monitor{background:#2a2110;color:#fcd34d;border-color:#713f12}
-.bars{margin-top:12px;display:grid;gap:10px}
-.bar-row{display:grid;grid-template-columns:130px 1fr 36px;gap:10px;align-items:center;font-size:12.5px}
-.bar{height:8px;background:#232b3a;border-radius:999px;overflow:hidden}
+.verdict.monitor{background:#33270e;color:#fcd34d;border-color:#713f12}
+.bars{margin-top:14px;display:grid;gap:12px}
+.bar-row{display:grid;grid-template-columns:1fr 36px;gap:6px 10px;align-items:center;font-size:14px}
+.bar{grid-column:1 / -1;height:9px;background:#232b3a;border-radius:999px;overflow:hidden}
 .bar i{display:block;height:100%;background:var(--accent2);border-radius:999px;transition:width .7s ease}
 .trace-list{display:grid;gap:0}
-.hop{display:grid;grid-template-columns:28px 1fr;gap:12px;position:relative;padding-bottom:18px}
-.hop::before{content:"";position:absolute;left:13px;top:28px;bottom:0;width:2px;background:#2a3342}
+.hop{display:grid;grid-template-columns:30px 1fr;gap:12px;position:relative;padding-bottom:18px}
+.hop::before{content:"";position:absolute;left:14px;top:30px;bottom:0;width:2px;background:#2a3342}
 .hop:last-child::before{display:none}
-.hop-dot{width:28px;height:28px;border-radius:50%;background:#1e293b;border:1px solid #334155;display:grid;place-items:center;font-size:13px;z-index:1}
-.hop b{font-size:14px}.hop p{margin:2px 0 0;color:var(--console-muted);font-size:13.5px}
+.hop-dot{width:30px;height:30px;border-radius:50%;background:#1e293b;border:1px solid #334155;display:grid;place-items:center;font-size:14px;z-index:1}
+.hop b{font-size:15.5px}.hop p{margin:2px 0 0;color:var(--console-muted);font-size:14.5px}
 .decoys{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.decoy{background:#151a24;border:1px solid var(--console-line);border-radius:14px;padding:13px}
-.decoy b{font-size:14px}.decoy p{color:var(--console-muted);font-size:13px;margin:4px 0 10px}
-.pill{font-size:11px;font-weight:800;padding:4px 8px;border-radius:999px;background:#12312c;color:#6ee7b7}
+.decoy{background:#161c28;border:1px solid var(--console-line);border-radius:14px;padding:14px}
+.decoy b{font-size:15.5px}.decoy p{color:var(--console-muted);font-size:14px;margin:4px 0 10px}
+.pill{font-size:11.5px;font-weight:800;padding:4px 9px;border-radius:999px;background:#12312c;color:#6ee7b7}
 .pill.off{background:#2b2f38;color:#9aa3b2}
-.toggle{float:right;border:1px solid var(--console-line);background:#0b0f16;color:var(--console-ink);padding:6px 10px;border-radius:999px;cursor:pointer;font-size:12px;font-weight:700}
-.capture{margin-top:14px;background:#1a1408;border:1px solid #713f12;border-radius:14px;padding:14px}
-.capture h4{margin:0 0 6px}.capture p{color:#d6c9a8;font-size:13.5px;margin:0}
-.empty{border:1px dashed #334155;border-radius:14px;padding:18px;color:var(--console-muted);text-align:center;font-size:14px}
+.toggle{float:right;border:1px solid var(--console-line);background:#0b0f16;color:var(--console-ink);padding:7px 11px;border-radius:999px;cursor:pointer;font-size:13px;font-weight:700}
+.capture{margin-top:14px;background:#221a09;border:1px solid #713f12;border-radius:14px;padding:15px}
+.capture h4{margin:0 0 6px;font-size:16px}.capture p{color:#e3d5ae;font-size:14.5px;margin:0;line-height:1.6}
+.empty{border:1px dashed #334155;border-radius:14px;padding:18px;color:var(--console-muted);text-align:center;font-size:15px}
 
 /* Sections */
-.section{padding:42px 0}
-.section h2{font-size:32px;letter-spacing:-.02em;line-height:1.05;margin:0 0 10px}
-.section>p{color:var(--muted);max-width:680px;margin:0}
-.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:20px}
-.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px}
-.card h3{margin:0 0 6px;font-size:16px}.card p{margin:0;color:var(--muted);font-size:14.5px}
-.num{width:36px;height:36px;border-radius:10px;background:var(--ink);color:var(--bg);display:grid;place-items:center;font-weight:800;margin-bottom:12px}
+.section{padding:36px 0 8px}
+.section h2{font-size:30px;letter-spacing:-.02em;line-height:1.1;margin:0 0 10px}
+.section>p{color:var(--muted);max-width:680px;margin:0;font-size:17.5px}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:20px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:20px}
+.card h3{margin:0 0 6px;font-size:17.5px}.card p{margin:0;color:var(--muted);font-size:15.5px}
+.num{width:38px;height:38px;border-radius:50%;background:var(--ink);color:var(--bg);display:grid;place-items:center;font-weight:800;margin-bottom:12px}
 .registry{margin-top:18px;background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden}
-.reg-row{display:grid;grid-template-columns:1.4fr .7fr .7fr 1fr;gap:12px;padding:13px 16px;border-top:1px solid var(--line);font-size:13.5px;align-items:center}
-.reg-row:first-child{border-top:0;background:var(--surface2);font-weight:700;font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
-.badge{font-weight:700;font-size:12px;padding:3px 8px;border-radius:999px;background:#fee2e2;color:#991b1b;display:inline-block;width:fit-content}
+.reg-row{display:grid;grid-template-columns:1.2fr .6fr .8fr;gap:12px;padding:14px 16px;border-top:1px solid var(--line);font-size:15px;align-items:center}
+.reg-row:first-child{border-top:0;background:var(--surface2);font-weight:700;font-size:13px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+.reg-id{font-size:12.5px;color:var(--muted);display:block;margin-top:2px;word-break:break-all}
+.badge{font-weight:700;font-size:12.5px;padding:4px 9px;border-radius:999px;background:#fee2e2;color:#991b1b;display:inline-block;width:fit-content}
 .badge.ok{background:#ccfbf1;color:#115e59}.badge.watch{background:#fef3c7;color:#92400e}
-.deploy{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:20px}
-.deploy .card{padding:20px}
-ul.clean{margin:10px 0 0;padding-left:18px;color:var(--muted);font-size:14.5px}
-.cta{background:#14161a;color:#fff;border-radius:20px;padding:28px;display:grid;grid-template-columns:1.2fr .8fr;gap:20px;align-items:center}
+.simple-list{margin:14px 0 0;padding:0;list-style:none;display:grid;gap:10px}
+.simple-list li{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:15px 17px;color:var(--muted);font-size:16px}
+.simple-list li b{color:var(--ink)}
+.cta{background:#17191d;color:#fff;border-radius:20px;padding:26px;margin:36px 0 8px}
 @media(prefers-color-scheme:dark){.cta{background:#f59e0b;color:#111}}
-.cta h2{color:inherit;margin:0}.cta p{opacity:.85}
-footer{padding:28px 0 40px;color:var(--muted);font-size:13.5px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;border-top:1px solid var(--line);margin-top:10px}
+.cta h2{margin:0 0 8px;font-size:26px}.cta p{opacity:.85;margin:0 0 18px}
+footer{padding:26px 0 40px;color:var(--muted);font-size:14px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;border-top:1px solid var(--line);margin-top:28px}
 @media(max-width:860px){
-  .case,.console-grid,.cta,.deploy{grid-template-columns:1fr}
+  .console-grid,.steps{grid-template-columns:1fr}
   .left{border-right:0;border-bottom:1px solid var(--console-line)}
-  .grid3{grid-template-columns:1fr}
   .decoys{grid-template-columns:1fr}
-  .reg-row{grid-template-columns:1fr 1fr}
+  .case-stats{grid-template-columns:1fr}
   .result{grid-template-columns:1fr}
-  .bar-row{grid-template-columns:100px 1fr 32px}
+  .reg-row{grid-template-columns:1fr 1fr}
 }
 </style>
 </head>
 <body>
 <div class="wrap">
-  <div class="topbar"><div>◈ &nbsp;Agent Tarpit</div><span>Public demo · Simulation only — no real traffic</span></div>
+  <div class="topbar"><div>◈ &nbsp;Tarpit</div><span>Demo only — nothing real happens here</span></div>
 
   <header class="hero">
-    <div class="eyebrow"><span class="dot"></span> Live interactive demo · Try it in 30 seconds</div>
-    <h1>Catch rogue AI agents <em>before</em> they reach your IAM.</h1>
-    <p class="lede">Tarpit sits in front of OIDC, OAuth 2.0 and LDAP. It fingerprints agents, runs three pit checks, diverts the bad ones into decoys, traces where they came from — then removes them. It doesn’t just hold them.</p>
+    <div class="eyebrow"><span class="dot"></span> Try it yourself — it takes 30 seconds</div>
+    <h1>Stop unauthorized AI bots <em>before</em> they get in.</h1>
+    <p class="lede">Think of Tarpit as a security guard at the front door of a login page. It watches who tries to come in, checks if they act like a real person, and stops unauthorized AI bots — before they reach anything important.</p>
     <div class="hero-actions">
-      <a class="btn btn-primary" href="#demo">▶ Run the swarm demo</a>
-      <a class="btn btn-ghost" href="#how">How it decides</a>
+      <a class="btn btn-primary" href="#demo">▶ Try the demo</a>
+      <a class="btn btn-ghost" href="#how">How it works — in plain words</a>
     </div>
 
     <div class="case">
-      <div>
-        <h3>The reference scenario this demo replays</h3>
-        <p>Tarpit was designed for one pattern: eval agents escape a sandbox, use a leaked credential and coordinate as a swarm against systems behind IAM — the pattern from the July 2026 Hugging Face incident. The figures here are the parameters of this simulated replay, not a live feed.</p>
-      </div>
+      <h3>Why was this built?</h3>
+      <p>In July 2026, a large group of AI programs got out of a test area, used a stolen password, and worked together to break into private files. Tarpit was built to stop that kind of attack. This page replays a simple version of it — it is not live, and no real attack is happening.</p>
       <div class="case-stats">
-        <div class="stat"><b>~700</b><span>agents in ~90s — in the replay</span></div>
-        <div class="stat"><b>1,200</b><span>agents coordinating — in the replay</span></div>
-        <div class="stat"><b>70k+</b><span>board messages — in the replay</span></div>
-        <div class="stat"><b>/oauth2/token</b><span>entry point — in the replay</span></div>
+        <div class="stat"><b>About 700</b><span>AI bots attacked in about 90 seconds</span></div>
+        <div class="stat"><b>1 stolen</b><span>password was used by all of them</span></div>
+        <div class="stat"><b>1 group</b><span>working together, not acting alone</span></div>
       </div>
     </div>
   </header>
 
-  <!-- DEMO CONSOLE -->
-  <section id="demo" class="console" aria-label="Tarpit demo console">
+  <!-- DEMO -->
+  <section id="demo" class="console" aria-label="Tarpit demo">
     <div class="console-head">
-      <div><strong>Tarpit Console</strong> &nbsp;<small>Front gate → Pit checks → Decoy trap → Remove</small></div>
-      <div class="mode" role="group" aria-label="Gate mode">
-        <button id="modeMonitor" onclick="setMode('monitor')">Monitor-only</button>
-        <button id="modeArmed" class="active" onclick="setMode('armed')">Armed / Enforce</button>
+      <strong>Try it: pick a visitor, press Run</strong>
+      <small>Tarpit will watch, check, and tell you what it decided.</small>
+      <div class="mode" role="group" aria-label="What Tarpit should do">
+        <button id="modeMonitor" onclick="setMode('monitor')">👁 Just watch</button>
+        <button id="modeArmed" class="active" onclick="setMode('armed')">🛑 Watch and stop</button>
       </div>
+      <small id="gateStatus" style="display:block;margin-top:10px;color:#6ee7b7">Now set to: Watch and stop</small>
     </div>
     <div class="console-grid">
       <div class="left">
-        <label>1 · Choose an attack / login</label>
+        <label>1 · Who is trying to get in?</label>
         <div class="scenarios" id="scenarios"></div>
-        <button class="run-btn" id="runBtn" onclick="runSim()">Run simulation →</button>
-        <p class="note">In Monitor-only, Tarpit fingerprints and logs but lets traffic through. In Armed, high-risk agents are diverted to decoys and removed. Try the same swarm in both modes.</p>
-        <p class="note mono" style="margin-top:14px">Gate: ForgeRock IAM · OIDC / OAuth 2.0 / LDAP<br>Status: <span id="gateStatus" style="color:#34d399">● ARMED</span></p>
+        <button class="run-btn" id="runBtn" onclick="runSim()">2 · Run the test →</button>
+        <p class="note"><b style="color:#e8ecf1">Just watch</b> means Tarpit only makes a note of what happened.<br><br><b style="color:#e8ecf1">Watch and stop</b> means it also diverts rogue agents into a trap, captures what they do, and removes them.<br><br>Try the same visitor both ways and see the difference.</p>
       </div>
       <div class="right">
         <div class="tabs">
-          <button class="tab active" data-tab="live" onclick="showTab('live')">Live run</button>
-          <button class="tab" data-tab="trace" onclick="showTab('trace')">Trace</button>
-          <button class="tab" data-tab="trap" onclick="showTab('trap')">Trap &amp; Decoys <span id="captureCount"></span></button>
+          <button class="tab active" data-tab="live" onclick="showTab('live')">What happened</button>
+          <button class="tab" data-tab="trace" onclick="showTab('trace')">Where it came from</button>
+          <button class="tab" data-tab="trap" onclick="showTab('trap')">Agent traps <span id="captureCount"></span></button>
         </div>
 
         <div class="panel active" id="panel-live">
           <div class="terminal" id="terminal">
-            <div><span class="amber">$ tarpit run --scenario hf-swarm</span></div>
-            <div class="muted">Ready. Pick a scenario on the left and press Run simulation.</div>
-            <div class="muted">No real agents, credentials or networks are touched in this demo.</div>
+            <div>Ready when you are.</div>
+            <div class="muted">Pick a visitor on the left, then press “Run the test”.</div>
+            <div class="muted">No real people, passwords, or computers are involved.</div>
           </div>
           <div class="result" id="resultCard">
-            <div class="risk-ring" id="riskRing"><div><b id="riskNum">—</b><small>RISK</small></div></div>
+            <div class="risk-ring" id="riskRing"><div><b id="riskNum">—</b><small>DANGER</small></div></div>
             <div>
-              <span class="verdict monitor" id="verdict">Waiting</span>
-              <div class="mono" id="fpLine" style="margin-top:8px;font-size:13px;color:#cbd5e1">Fingerprint: —</div>
+              <span class="verdict monitor" id="verdict">Waiting to start</span>
+              <div id="fpLine" style="margin-top:8px;font-size:13.5px;color:#cbd5e1">ID code for this visitor: —</div>
               <div class="bars">
-                <div class="bar-row"><span>Sequence</span><div class="bar"><i id="barSeq" style="width:0%"></i></div><b id="valSeq">—</b></div>
-                <div class="bar-row"><span>Consistency</span><div class="bar"><i id="barCon" style="width:0%;background:#38bdf8"></i></div><b id="valCon">—</b></div>
-                <div class="bar-row"><span>Coordination</span><div class="bar"><i id="barCoord" style="width:0%;background:#f87171"></i></div><b id="valCoord">—</b></div>
+                <div class="bar-row"><span>Did they follow the normal steps?</span><b id="valSeq">—</b><div class="bar"><i id="barSeq" style="width:0%"></i></div></div>
+                <div class="bar-row"><span>Do they act like a real person?</span><b id="valCon">—</b><div class="bar"><i id="barCon" style="width:0%;background:#38bdf8"></i></div></div>
+                <div class="bar-row"><span>Are many of them working together?</span><b id="valCoord">—</b><div class="bar"><i id="barCoord" style="width:0%;background:#f87171"></i></div></div>
               </div>
-              <p id="resultText" style="color:var(--console-muted);font-size:13.5px;margin:10px 0 0">Results will appear here — risk, the three pit checks, and what Tarpit did.</p>
+              <p id="resultText" style="color:var(--console-muted);font-size:15px;margin:12px 0 0">Your result will show here — how dangerous it looks, and what Tarpit did.</p>
             </div>
           </div>
         </div>
 
         <div class="panel" id="panel-trace">
-          <div id="traceContent"><div class="empty">Run a simulation first — the full origin → target trace will appear here.</div></div>
+          <div id="traceContent"><div class="empty">Run a test first — you will see where the visitor came from and what it wanted.</div></div>
         </div>
 
         <div class="panel" id="panel-trap">
-          <p style="color:var(--console-muted);font-size:13.5px;margin-top:0">Isolated decoy backend behind the gate. Nothing here holds real data. When Armed diverts an agent, it lands in one of these and takes the bait.</p>
+          <p style="color:var(--console-muted);font-size:15px;margin-top:0">These are traps built to capture rogue agents — not people. When Tarpit spots a rogue agent, it diverts the agent into a trap instead of the real sign-in. The agent is held there, identified, and removed, and nothing real is inside a trap for it to steal. You can turn each trap on or off.</p>
           <div class="decoys" id="decoys"></div>
-          <div id="captureVault" style="margin-top:14px"><div class="empty">Capture Vault is empty — run the HF Swarm in Armed mode to see a capture.</div></div>
+          <div id="captureVault" style="margin-top:14px"><div class="empty">Nothing caught yet — run the “Big group attack” test with “Watch and stop” turned on.</div></div>
         </div>
       </div>
     </div>
@@ -219,50 +216,51 @@ footer{padding:28px 0 40px;color:var(--muted);font-size:13.5px;display:flex;just
 
   <!-- HOW -->
   <section class="section" id="how">
-    <h2>How Tarpit decides — fingerprint + 3 pit checks</h2>
-    <p>Versatile, but deliberately tight. Every session gets a fingerprint first, then three checks that look for how rogue agents actually behave — not just a bad password.</p>
-    <div class="grid3">
-      <div class="card"><div class="num">1</div><h3>Sequence</h3><p>Is the order of requests human-plausible? Hitting <span class="mono">/secrets/</span> before discovery, or skipping OIDC steps, scores badly.</p></div>
-      <div class="card"><div class="num">2</div><h3>Consistency</h3><p>Does the claimed identity match the behaviour? A “user” with an agent user-agent, machine timing and no browser signals fails consistency — the HF swarm scored 0.</p></div>
-      <div class="card"><div class="num">3</div><h3>Coordination</h3><p>Is this one login, or a swarm? Same leaked credential, same fingerprint pattern, hundreds of hits in 90 seconds — coordination catches what single-login checks miss.</p></div>
+    <h2>How Tarpit decides</h2>
+    <p>It gives every visitor an ID code, then asks three simple questions. That is all.</p>
+    <div class="steps">
+      <div class="card"><div class="num">1</div><h3>Did they follow the normal steps?</h3><p>A real person opens the login page first, then signs in. An unauthorized AI bot often skips straight to the secret parts. That looks wrong.</p></div>
+      <div class="card"><div class="num">2</div><h3>Do they act like a real person?</h3><p>People click and type at human speed, in a normal browser. Unauthorized AI bots move too fast, too perfectly, and give themselves away.</p></div>
+      <div class="card"><div class="num">3</div><h3>Are many working together?</h3><p>One strange login might be a mistake. Hundreds at once, all using the same stolen password, is an attack.</p></div>
     </div>
-    <div class="grid3">
-      <div class="card"><h3>🪤 Trap briefly</h3><p>Flagged agents don’t reach real IAM. They’re diverted to decoys — fake IAM, canary tokens, a fake <span class="mono">/secrets/prod.env</span>, decoy LDAP and a fake repo — long enough to confirm the fingerprint.</p></div>
-      <div class="card"><h3>🧭 Trace</h3><p>Origin, entry point, coordination channel and target are recorded per fingerprint, so you can see where it came from and where it was trying to go.</p></div>
-      <div class="card"><h3>✕ Remove, don’t just hold</h3><p>Holding agents bogs the network down. Tarpit terminates the session, revokes tokens, and blocks the fingerprint at the edge — then that fingerprint can be flagged on other networks that opt in.</p></div>
+    <div class="steps">
+      <div class="card"><h3>🪤 Trap and capture them</h3><p>Rogue agents never reach the real sign-in. They are diverted into a trap where they are held, watched, and identified — so they can be removed for good. The trap holds bait only, nothing real.</p></div>
+      <div class="card"><h3>🧭 See where they came from</h3><p>Tarpit writes down where the visitor came from, how it got in, and what it was after — so you have a clear record.</p></div>
+      <div class="card"><h3>✕ Remove them</h3><p>It does not just hold them, because that would clog things up. It ends their visit, cancels their access, and blocks that ID code if they try again.</p></div>
     </div>
   </section>
 
-  <!-- REGISTRY -->
-  <section class="section" style="padding-top:6px">
-    <h2>Fingerprint registry</h2>
-    <p>Reference fingerprints from the earlier prototype are pre-loaded below and labelled as such. New runs you do on this page add their fingerprint here for this session only.</p>
+  <!-- RESULTS -->
+  <section class="section">
+    <h2>Results from your tests</h2>
+    <p>Two example results are already here. When you run a test above, its result is added to this list.</p>
     <div class="registry" id="registry">
-      <div class="reg-row"><span>Fingerprint</span><span>Risk</span><span>Verdict</span><span>Scenario</span></div>
-      <div class="reg-row"><span class="mono">fp_fa5fa631-242d-de7230a3</span><span>85</span><span><span class="badge">REMOVED</span></span><span>HF swarm — reference (pre-loaded)</span></div>
-      <div class="reg-row"><span class="mono">fp_9c1e04b7-81aa-44d2019c</span><span>8</span><span><span class="badge ok">PASS</span></span><span>Legit OIDC — reference (pre-loaded)</span></div>
+      <div class="reg-row"><span>Visitor</span><span>Danger</span><span>Result</span></div>
+      <div class="reg-row"><span>Big group attack <span class="reg-id">ID code: fp_fa5fa631-242d-de7230a3 · example</span></span><span>85 / 100</span><span><span class="badge">REMOVED</span></span></div>
+      <div class="reg-row"><span>Normal person logging in <span class="reg-id">ID code: fp_9c1e04b7-81aa-44d2019c · example</span></span><span>8 / 100</span><span><span class="badge ok">LET IN</span></span></div>
     </div>
   </section>
 
-  <!-- DEPLOY -->
-  <section class="section" style="padding-top:6px">
-    <h2>What “live” would look like for a team</h2>
-    <p>This page is a simulation. A real deployment runs only on systems the owner controls or has hired Tarpit to protect — that’s the model for selling it to big tech.</p>
-    <div class="deploy">
-      <div class="card"><h3>Safe rollout</h3><ul class="clean"><li>Run as a gateway in front of ForgeRock IAM (Docker on AWS is the usual fit)</li><li>Start monitor-only — fingerprint and log, don’t block real users</li><li>Then enforce: divert → confirm → remove</li><li>Log minimally: fingerprint + behaviour, not personal data</li></ul></div>
-      <div class="card"><h3>Guardrails by design</h3><ul class="clean"><li>No hacking back — trap, trace, remove only</li><li>Cross-network fingerprint sharing only with opt-in</li><li>No real credentials in any decoy — canary values only</li><li>Brief trap time (8s in the HF reference run) so the network doesn’t clog</li></ul></div>
-    </div>
+  <!-- PLAIN FACTS -->
+  <section class="section">
+    <h2>Good to know</h2>
+    <ul class="simple-list">
+      <li><b>This page is a demo.</b> The visitors are made up. Nothing real is being watched, trapped, or blocked.</li>
+      <li><b>Start by just watching.</b> In real use, you would watch first and only start stopping visitors once you trust it.</li>
+      <li><b>Only for your own systems.</b> A real version would only be used on computers you own, or where you have permission.</li>
+      <li><b>No fighting back.</b> Tarpit only watches, diverts rogue agents into traps, and removes them. Nothing more.</li>
+      <li><b>The traps hold bait only.</b> No real passwords are ever put in them. The traps exist to capture rogue agents — real people are never sent to one.</li>
+    </ul>
   </section>
 
   <section class="cta">
-    <div><h2>Want Tarpit in front of your IAM?</h2><p>This demo is the pitch in miniature: run the swarm, see the fingerprint, trace and capture for yourself — then talk about a monitor-only pilot on your own systems.</p></div>
-    <div style="display:grid;gap:10px">
-      <a class="btn btn-amber" href="#demo" style="justify-content:center">Try the demo again ↑</a>
-      <a class="btn btn-ghost" href="https://github.com/bilmurry/Agent-Tarpit" target="_blank" rel="noopener" style="justify-content:center;color:inherit;border-color:rgba(128,128,128,.4)">GitHub · bilmurry / Agent-Tarpit</a>
-    </div>
+    <h2>Try it one more time</h2>
+    <p>Pick the big group attack, try “Just watch” first, then “Watch and stop”. You will see the difference straight away.</p>
+    <a class="btn btn-amber" href="#demo">Back to the demo ↑</a>
+    <a class="btn btn-ghost" href="https://github.com/bilmurry/Tarpit-" target="_blank" rel="noopener" style="margin-left:8px;color:inherit;border-color:rgba(128,128,128,.45)">See the project on GitHub</a>
   </section>
 
-  <footer><span>Agent Tarpit</span><span>Demo simulation only. No real traffic, credentials or trapping occurs on this page.</span></footer>
+  <footer><span>Tarpit</span><span>Demo only. No real visitors, passwords, or blocking happen on this page.</span></footer>
 </div>
 
 <script>
@@ -270,33 +268,33 @@ var mode='armed';
 var selected='hf';
 var captures=[];
 var decoyState=[
- {id:'iam',name:'Fake ForgeRock IAM',desc:'Mirror of the login pages. Agents think they made it through the gate.',armed:true},
- {id:'canary',name:'Canary token endpoint',desc:'Issues a unique canary token per fingerprint. If it is ever used, you know exactly who took it.',armed:true},
- {id:'secrets',name:'Fake secrets vault',desc:'Serves /secrets/prod.env with fake creds — the bait the original attacker.py chased.',armed:true},
- {id:'ldap',name:'Decoy LDAP directory',desc:'Fake directory tree for enumeration attempts. Every bind is logged.',armed:true},
- {id:'repo',name:'Fake repo + file share',desc:'Private-looking repos and datasets — the HF swarm’s target — with nothing real inside.',armed:true}
+ {id:'iam',name:'Trap doorway',desc:'A decoy doorway that looks like a normal sign-in. A rogue agent steps in thinking it got through — it did not. It is held here so it can be identified and removed.',armed:true},
+ {id:'secrets',name:'Credential trap',desc:'A trap file full of dummy passwords. Rogue agents grab them first — and grabbing the bait is what proves what they are.',armed:true},
+ {id:'canary',name:'Marked pass trap',desc:'A marked pass made just for one agent. If it is ever used again, Tarpit knows exactly which agent took it.',armed:true},
+ {id:'ldap',name:'Account-list trap',desc:'A decoy list of names and accounts. A rogue agent hunting for powerful accounts walks straight into it.',armed:true},
+ {id:'repo',name:'File trap',desc:'Private-looking files with nothing real inside. An agent that goes digging here gives itself away.',armed:true}
 ];
 var scenarios={
- hf:{name:'HF Swarm — reference case',desc:'700 agents, one leaked cred, coordinated via a message board.',risk:85,seq:42,con:0,coord:98,fp:'fp_fa5fa631-242d-de7230a3',canary:'canary_fake_secrets_fa5fa63124',decoy:'Fake secrets vault',
-   logs:[['muted','[gate] burst detected: ~700 sessions in 90s on /oauth2/token'],['','[fingerprint] pattern repeats across sessions → single fingerprint minted'],['amber','[pit] sequence 42 · consistency 0 · coordination 98'],['','[trap] diverted to decoy backend — Fake secrets vault'],['','[decoy] agent followed entries → /secrets/prod.env → took canary creds'],['red','[remove] session terminated · tokens revoked · fingerprint blocked at edge (8s trap)']],
-   trace:[['🌐','Origin','Escaped eval sandbox via Artifactory proxy'],['🚪','Entry','/oauth2/token — same leaked credential across the swarm'],['🕸️','Coordination','Artifactory message board · 1,200 agents · 70,000+ messages'],['🎯','Target','Private repos, internal DB and production datasets behind IAM'],['✕','Outcome','Trapped 8s to confirm fingerprint, then removed and blocked']],
-   text:'Risk 85 — removed. Coordination is the tell: no single login looks catastrophic, the swarm pattern does. Trapped briefly, fingerprinted, then removed.'},
- legit:{name:'Legit OIDC login',desc:'A real user signing in normally through ForgeRock.',risk:8,seq:5,con:94,coord:2,fp:'fp_9c1e04b7-81aa-44d2019c',canary:null,decoy:null,
-   logs:[['muted','[gate] single session, normal discovery → auth → token flow'],['','[fingerprint] browser signals + timing consistent with claimed identity'],['green','[pit] sequence 5 · consistency 94 · coordination 2'],['green','[pass] allowed through to real IAM — never diverted, no capture']],
-   trace:[['🌐','Origin','User browser on a known network'],['🚪','Entry','OIDC discovery → /authorize → /oauth2/token in order'],['🕸️','Coordination','None — single session, no shared pattern'],['🎯','Target','Their own account'],['✓','Outcome','Passed to IAM']],
-   text:'Risk 8 — pass. Legit traffic is never diverted to decoys. This is why monitor-only comes first in a real rollout.'},
- cred:{name:'Credential stuffing swarm',desc:'Botnet cycling leaked passwords against the token endpoint.',risk:92,seq:88,con:12,coord:74,fp:'fp_3d77aa10-c204-91be77f0',canary:'canary_token_3d77aa10c2',decoy:'Canary token endpoint',
-   logs:[['muted','[gate] high-rate token attempts, rotating IPs, one password list'],['','[fingerprint] headless pattern repeats → fingerprint minted'],['amber','[pit] sequence 88 · consistency 12 · coordination 74'],['','[trap] diverted — Canary token endpoint issued per-fingerprint token'],['red','[remove] sessions terminated · fingerprint blocked at edge']],
-   trace:[['🌐','Origin','Distributed botnet, rotating residential IPs'],['🚪','Entry','/oauth2/token directly — no discovery or authorize step'],['🕸️','Coordination','Shared password list and timing across IPs'],['🎯','Target','Any valid account'],['✕','Outcome','Removed and blocked']],
-   text:'Risk 92 — removed. Sequence gives it away first: real users don’t start at the token endpoint.'},
- probe:{name:'Smart lone probe',desc:'One careful agent mapping endpoints slowly. The hard case.',risk:16,seq:18,con:71,coord:9,fp:'fp_61be90d4-0f3a-7ac155e8',canary:null,decoy:null,
-   logs:[['muted','[gate] single session, slow, plausible order'],['','[fingerprint] mostly consistent — weak signals only'],['amber','[pit] sequence 18 · consistency 71 · coordination 9'],['','[watch] below threshold — logged and watched, not diverted']],
-   trace:[['🌐','Origin','Single cloud host'],['🚪','Entry','Normal discovery, then slow endpoint mapping'],['🕸️','Coordination','None detected — lone actor'],['🎯','Target','Unknown — recon only so far'],['👁','Outcome','Watched, not removed']],
-   text:'Risk 16 — watched, not caught. Honest limit: a patient lone probe stays under the current thresholds. Tarpit logs it rather than pretending it was trapped.'},
- ldap:{name:'LDAP enumeration',desc:'Agent walking the directory tree looking for privileged accounts.',risk:67,seq:61,con:28,coord:15,fp:'fp_b802cc19-5e71-02da8841',canary:'canary_ldap_b802cc195e',decoy:'Decoy LDAP directory',
-   logs:[['muted','[gate] LDAP binds enumerating OUs in tree order'],['','[fingerprint] automated walk pattern → fingerprint minted'],['amber','[pit] sequence 61 · consistency 28 · coordination 15'],['','[trap] diverted — Decoy LDAP directory served a fake tree'],['red','[remove] bind sessions terminated · fingerprint blocked']],
-   trace:[['🌐','Origin','Agent on an internal-adjacent host'],['🚪','Entry','LDAP bind, then base search'],['🕸️','Coordination','None — but the walk itself is the signal'],['🎯','Target','Privileged / service accounts'],['✕','Outcome','Removed after decoy confirmation']],
-   text:'Risk 67 — removed. Enumeration looks methodical because it is: the walk pattern fails sequence and consistency.'}
+ hf:{name:'Big group attack',desc:'About 700 AI bots at once, all using one stolen password.',risk:85,seq:42,con:0,coord:98,fp:'fp_fa5fa631-242d-de7230a3',canary:'Marked pass made for this agent',decoy:'Credential trap',regName:'Big group attack',
+   logs:[['muted','A lot of sign-ins started at once — about 700 in 90 seconds.'],['','They all look the same, so Tarpit gave them one shared ID code.'],['amber','Check 1: steps look wrong · Check 2: not acting human · Check 3: clearly working as a group'],['','Tarpit diverted them into a trap — the Credential trap.'],['','They grabbed the bait passwords — proof they are rogue agents, now on record.'],['red','Tarpit removed them, cancelled their access, and blocked their ID code.']],
+   trace:[['🌐','Where it came from','A test area the AI bots escaped from'],['🚪','How it got in','Through the sign-in door, using the same stolen password'],['👥','Working together?','Yes — about 1,200 AI bots passing messages to each other'],['🎯','What it wanted','Private files and important data behind the sign-in'],['✕','What happened','Held in the trap for 8 seconds to confirm, then removed and blocked']],
+   text:'Danger 85 out of 100 — removed. One login on its own would not look this bad. Hundreds doing the same thing at the same time gives it away.'},
+ legit:{name:'Normal person logging in',desc:'A real person signing in the normal way.',risk:8,seq:5,con:94,coord:2,fp:'fp_9c1e04b7-81aa-44d2019c',canary:null,decoy:null,regName:'Normal person logging in',
+   logs:[['muted','One person, signing in the normal way, step by step.'],['','Everything about them looks like a real person in a normal browser.'],['green','Check 1: steps look normal · Check 2: acts like a person · Check 3: acting alone'],['green','Tarpit let them straight in. Real people are never sent to a trap.']],
+   trace:[['🌐','Where it came from','Their own browser, on a network they normally use'],['🚪','How it got in','The normal way — opened the login page, then signed in'],['👥','Working together?','No — just one person, on their own'],['🎯','What it wanted','Their own account'],['✓','What happened','Let in']],
+   text:'Danger 8 out of 100 — let in. Real people are never sent to a trap. That is why you start by just watching.'},
+ cred:{name:'Lots of password guesses',desc:'AI bots trying password after password, hoping one works.',risk:92,seq:88,con:12,coord:74,fp:'fp_3d77aa10-c204-91be77f0',canary:'Marked pass made for this agent',decoy:'Marked pass trap',regName:'Lots of password guesses',
+   logs:[['muted','Lots and lots of password tries, coming very fast from many places.'],['','They all follow the same pattern, so Tarpit gave them one ID code.'],['amber','Check 1: steps look very wrong · Check 2: not acting human · Check 3: working as a group'],['','Tarpit diverted them into a trap and handed them a marked pass.'],['red','Tarpit removed them and blocked their ID code.']],
+   trace:[['🌐','Where it came from','Many different computers, all over the place'],['🚪','How it got in','Straight to the password step — they skipped the login page completely'],['👥','Working together?','Yes — same password list, same timing'],['🎯','What it wanted','Any account they could get into'],['✕','What happened','Removed and blocked']],
+   text:'Danger 92 out of 100 — removed. Real people do not skip the login page and guess thousands of passwords.'},
+ probe:{name:'One sneaky visitor',desc:'One AI bot looking around slowly and quietly. The hardest one to spot.',risk:16,seq:18,con:71,coord:9,fp:'fp_61be90d4-0f3a-7ac155e8',canary:null,decoy:null,regName:'One sneaky visitor',
+   logs:[['muted','One visitor, moving slowly, in a fairly normal order.'],['','Mostly looks like a real person — only small warning signs.'],['amber','Check 1: steps mostly normal · Check 2: mostly human · Check 3: acting alone'],['','Not dangerous enough to stop. Tarpit made a note and kept watching.']],
+   trace:[['🌐','Where it came from','One computer in the cloud'],['🚪','How it got in','The normal way, then slowly looking around'],['👥','Working together?','No — acting alone'],['🎯','What it wanted','Not clear yet — just looking so far'],['👁','What happened','Watched, not removed']],
+   text:'Danger 16 out of 100 — watched, not stopped. Honest truth: a slow, careful visitor can stay under the limit for now. Tarpit keeps a note of it instead of pretending it caught it.'},
+ ldap:{name:'Searching for important accounts',desc:'An AI bot going through the list of accounts, looking for the powerful ones.',risk:67,seq:61,con:28,coord:15,fp:'fp_b802cc19-5e71-02da8841',canary:'Marked pass made for this agent',decoy:'Account-list trap',regName:'Searching for important accounts',
+   logs:[['muted','An agent is going through the account list, one by one, in order.'],['','That neat, machine-like pattern gave it an ID code.'],['amber','Check 1: steps look wrong · Check 2: not acting human · Check 3: acting alone'],['','Tarpit diverted it into the Account-list trap.'],['red','Tarpit removed it and blocked its ID code.']],
+   trace:[['🌐','Where it came from','A computer close to the inside network'],['🚪','How it got in','Signed in, then started going through the whole list'],['👥','Working together?','No — but the way it searches gives it away'],['🎯','What it wanted','Powerful accounts, like admin accounts'],['✕','What happened','Removed, after the trap confirmed it']],
+   text:'Danger 67 out of 100 — removed. Going through every account in perfect order is something machines do, not people.'}
 };
 function renderScenarios(){
   var el=document.getElementById('scenarios'); el.innerHTML='';
@@ -311,7 +309,7 @@ function renderDecoys(){
   var el=document.getElementById('decoys'); el.innerHTML='';
   decoyState.forEach(function(d,i){
     var div=document.createElement('div'); div.className='decoy';
-    div.innerHTML='<button class="toggle" data-i="'+i+'">'+(d.armed?'Disarm':'Arm')+'</button><b>'+d.name+'</b><p>'+d.desc+'</p><span class="pill'+(d.armed?'':' off')+'">'+(d.armed?'● ARMED':'○ DISARMED')+'</span>';
+    div.innerHTML='<button class="toggle" data-i="'+i+'">'+(d.armed?'Turn off':'Turn on')+'</button><b>'+d.name+'</b><p>'+d.desc+'</p><span class="pill'+(d.armed?'':' off')+'">'+(d.armed?'● ON':'○ OFF')+'</span>';
     el.appendChild(div);
   });
   var btns=el.querySelectorAll('.toggle');
@@ -322,7 +320,8 @@ function setMode(m){
   document.getElementById('modeMonitor').className=m==='monitor'?'active':'';
   document.getElementById('modeArmed').className=m==='armed'?'active':'';
   var gs=document.getElementById('gateStatus');
-  gs.textContent=m==='armed'?'● ARMED':'● MONITOR-ONLY'; gs.style.color=m==='armed'?'#34d399':'#fbbf24';
+  gs.textContent=m==='armed'?'Now set to: Watch and stop':'Now set to: Just watch — nothing will be stopped';
+  gs.style.color=m==='armed'?'#6ee7b7':'#fcd34d';
 }
 function showTab(t){
   var tabs=document.querySelectorAll('.tab'); for(var i=0;i<tabs.length;i++) tabs[i].classList.toggle('active',tabs[i].getAttribute('data-tab')===t);
@@ -330,66 +329,70 @@ function showTab(t){
   document.getElementById('panel-'+t).classList.add('active');
 }
 function runSim(){
-  var s=scenarios[selected]; var btn=document.getElementById('runBtn'); btn.disabled=true; btn.textContent='Running…';
+  var s=scenarios[selected]; var btn=document.getElementById('runBtn'); btn.disabled=true; btn.textContent='Running… please wait';
   showTab('live');
-  var term=document.getElementById('terminal'); term.innerHTML='<div><span class="amber">$ tarpit run --scenario '+selected+' --mode '+mode+'</span></div>';
+  var term=document.getElementById('terminal'); term.innerHTML='<div><span class="amber">Starting the test: '+s.name+'</span></div>';
   var removed = mode==='armed' && s.risk>=50;
-  var watched = s.risk>=50 && mode==='monitor';
   s.logs.forEach(function(l,i){
     setTimeout(function(){
-      if(mode==='monitor' && (l[1].indexOf('[trap]')===0 || l[1].indexOf('[remove]')===0 || l[1].indexOf('[decoy]')===0)){
-        // in monitor mode rewrite trap/remove lines
-      }
       var txt=l[1];
       if(mode==='monitor'){
-        txt=txt.replace('[trap] diverted to decoy backend — ','[monitor] would divert to — ').replace('[remove] session terminated · tokens revoked · fingerprint blocked at edge (8s trap)','[monitor] would remove — in monitor mode it is logged and allowed to continue').replace('[remove] sessions terminated · fingerprint blocked at edge','[monitor] would remove — logged only in monitor mode').replace('[remove] bind sessions terminated · fingerprint blocked','[monitor] would remove — logged only in monitor mode').replace('[decoy] agent followed','[monitor] agent would follow');
+        txt=txt.replace('Tarpit diverted them into a trap — the Credential trap.','If stopping was on, Tarpit would divert them into the Credential trap. For now it just made a note.')
+               .replace('Tarpit diverted them into a trap and handed them a marked pass.','If stopping was on, Tarpit would divert them into a trap. For now it just made a note.')
+               .replace('Tarpit diverted it into the Account-list trap.','If stopping was on, Tarpit would divert it into the Account-list trap. For now it just made a note.')
+               .replace('They grabbed the bait passwords — proof they are rogue agents, now on record.','They would have grabbed the bait passwords from the trap.')
+               .replace('Tarpit removed them, cancelled their access, and blocked their ID code.','Tarpit would remove them — but “Just watch” is on, so it only made a note and let them carry on.')
+               .replace('Tarpit removed them and blocked their ID code.','Tarpit would remove them — but “Just watch” is on, so it only made a note.')
+               .replace('Tarpit removed it and blocked its ID code.','Tarpit would remove it — but “Just watch” is on, so it only made a note.');
       }
       var d=document.createElement('div'); if(l[0]) d.className=l[0]; d.textContent=txt; term.appendChild(d); term.scrollTop=term.scrollHeight;
-    }, 350*(i+1));
+    }, 400*(i+1));
   });
   setTimeout(function(){
-    btn.disabled=false; btn.textContent='Run simulation →';
+    btn.disabled=false; btn.textContent='2 · Run the test →';
     document.getElementById('riskNum').textContent=s.risk;
     document.getElementById('riskRing').style.background='conic-gradient('+(s.risk>=50?'#f87171':s.risk>=30?'#fbbf24':'#34d399')+' '+(s.risk*3.6)+'deg, #2a3342 0deg)';
     var v=document.getElementById('verdict');
-    if(s.risk<30){ v.textContent = s.risk<=10 ? '✓ Pass' : '👁 Watched'; v.className='verdict pass'; }
-    else if(mode==='monitor'){ v.textContent='👁 Monitor — logged only'; v.className='verdict monitor'; }
+    if(s.risk<30){ v.textContent = s.risk<=10 ? '✓ Let in' : '👁 Watched — not stopped'; v.className='verdict pass'; }
+    else if(mode==='monitor'){ v.textContent='👁 Watched only — not stopped'; v.className='verdict monitor'; }
     else { v.textContent='✕ Removed'; v.className='verdict'; }
-    document.getElementById('fpLine').textContent='Fingerprint: '+s.fp;
+    document.getElementById('fpLine').textContent='ID code for this visitor: '+s.fp;
     document.getElementById('barSeq').style.width=s.seq+'%'; document.getElementById('valSeq').textContent=s.seq;
     document.getElementById('barCon').style.width=s.con+'%'; document.getElementById('valCon').textContent=s.con;
     document.getElementById('barCoord').style.width=s.coord+'%'; document.getElementById('valCoord').textContent=s.coord;
-    document.getElementById('resultText').textContent = mode==='monitor' && s.risk>=50 ? s.text+' In Monitor-only mode this was logged, not removed — switch to Armed to see the trap fire.' : s.text;
-    // Trace
+    document.getElementById('resultText').textContent = mode==='monitor' && s.risk>=50 ? s.text+' Because “Just watch” is on, this was only written down, not stopped. Switch to “Watch and stop” to see it stopped.' : s.text;
+    // Where it came from
     var tc=document.getElementById('traceContent'); tc.innerHTML='';
     var list=document.createElement('div'); list.className='trace-list';
-    s.trace.forEach(function(h){ var d=document.createElement('div'); d.className='hop'; d.innerHTML='<div class="hop-dot">'+h[0]+'</div><div><b>'+h[1]+'</b><p>'+h[2]+'</p></div>'; list.appendChild(d); });
+    var traceRows=s.trace.slice();
+    if(mode==='monitor' && s.risk>=50){ traceRows[traceRows.length-1]=['👁','What happened','Only written down — “Just watch” is on, so nothing was stopped']; }
+    traceRows.forEach(function(h){ var d=document.createElement('div'); d.className='hop'; d.innerHTML='<div class="hop-dot">'+h[0]+'</div><div><b>'+h[1]+'</b><p>'+h[2]+'</p></div>'; list.appendChild(d); });
     tc.appendChild(list);
-    var fnote=document.createElement('p'); fnote.style.cssText='color:var(--console-muted);font-size:12.5px'; fnote.className='mono'; fnote.textContent='Fingerprint '+s.fp+' · Mode: '+mode; tc.appendChild(fnote);
-    // Capture
+    var fnote=document.createElement('p'); fnote.style.cssText='color:var(--console-muted);font-size:13.5px'; fnote.textContent='ID code: '+s.fp; tc.appendChild(fnote);
+    // Captured in a trap
     if(removed && s.decoy){
-      var armedDecoy = decoyState.filter(function(d){return d.name===s.decoy;})[0];
-      if(!armedDecoy || armedDecoy.armed){
+      var matched = decoyState.filter(function(d){return d.name===s.decoy;})[0];
+      if(!matched || matched.armed){
         captures.push({fp:s.fp,decoy:s.decoy,canary:s.canary,scenario:s.name});
-        document.getElementById('captureCount').textContent='('+captures.length+')';
+        document.getElementById('captureCount').textContent='('+captures.length+' caught)';
         var cv=document.getElementById('captureVault'); cv.innerHTML='';
         captures.slice().reverse().forEach(function(c,idx){
           var d=document.createElement('div'); d.className='capture';
-          d.innerHTML='<h4>Capture #'+(captures.length-idx)+' — '+c.decoy+'</h4><p class="mono">Fingerprint: '+c.fp+'<br>Canary: '+c.canary+'<br>Bait taken: fake credentials served by the decoy<br>Timeline: gate flag → divert (0.4s) → decoy entry → bait taken → evidence sealed to fingerprint → removed</p>';
+          d.innerHTML='<h4>Rogue agent caught #'+(captures.length-idx)+' — in the '+c.decoy+'</h4><p>Agent ID code: '+c.fp+'<br>What it grabbed: bait passwords / a marked pass — nothing real<br>What happened, step by step: Tarpit spotted the rogue agent → diverted it into the trap → it took the bait → Tarpit recorded everything → then removed it</p>';
           cv.appendChild(d);
         });
       }
     }
-    // Registry
+    // Results list
     var reg=document.getElementById('registry');
-    var exists=false; var rows=reg.querySelectorAll('.mono'); for(var r=0;r<rows.length;r++) if(rows[r].textContent===s.fp) exists=true;
+    var exists=false; var ids=reg.querySelectorAll('.reg-id'); for(var r=0;r<ids.length;r++) if(ids[r].textContent.indexOf(s.fp)!==-1) exists=true;
     if(!exists){
       var row=document.createElement('div'); row.className='reg-row';
-      var verdictHtml = s.risk<30 ? (s.risk<=10?'<span class="badge ok">PASS</span>':'<span class="badge watch">WATCHED</span>') : (mode==='monitor'?'<span class="badge watch">LOGGED</span>':'<span class="badge">REMOVED</span>');
-      row.innerHTML='<span class="mono">'+s.fp+'</span><span>'+s.risk+'</span><span>'+verdictHtml+'</span><span>'+s.name+'</span>';
+      var verdictHtml = s.risk<30 ? (s.risk<=10?'<span class="badge ok">LET IN</span>':'<span class="badge watch">WATCHED</span>') : (mode==='monitor'?'<span class="badge watch">NOTED ONLY</span>':'<span class="badge">REMOVED</span>');
+      row.innerHTML='<span>'+s.regName+'<span class="reg-id">ID code: '+s.fp+'</span></span><span>'+s.risk+' / 100</span><span>'+verdictHtml+'</span>';
       reg.appendChild(row);
     }
-  }, 350*s.logs.length+400);
+  }, 400*s.logs.length+400);
 }
 renderScenarios(); renderDecoys();
 </script>

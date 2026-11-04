@@ -5,346 +5,360 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
 <meta name="color-scheme" content="light dark"/>
 <link rel="icon" href="data:,"/>
-<title>Tarpit Live Test</title>
+<title>Tarpit — Stopping Unauthorized AI Bots</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#f6f5f1; --panel:#ffffff; --panel2:#f0efe9; --ink:#121417; --muted:#6b7280; --line:#e2e0d8;
-  --red:#e63a17; --red-bg:#fff1ec; --amber:#b77900; --amber-bg:#fff7db; --green:#0f766e; --green-bg:#e6f4f1;
-  --dark:#101214; --dark2:#1a1d1f; --accent:#ff4d1c;
+  --bg:#f6f5f1; --panel:#ffffff; --panel2:#f0efe9; --ink:#121417; --muted:#5f666d; --line:#e2e0d8;
+  --red:#d92f0f; --red-bg:#fff1ec; --amber:#9a6a00; --amber-bg:#fff7db; --green:#0f766e; --green-bg:#e6f4f1;
+  --dark:#101214; --accent:#ff4d1c;
 }
 @media (prefers-color-scheme: dark){
-  :root{ --bg:#0e1011; --panel:#17191b; --panel2:#1e2123; --ink:#f2f1ed; --muted:#9aa0a6; --line:#2a2e30; --red-bg:#2a140f; --amber-bg:#2a2106; --green-bg:#0d2420; }
+  :root{ --bg:#0e1011; --panel:#17191b; --panel2:#1e2123; --ink:#f2f1ed; --muted:#a7adb3; --line:#2a2e30; --red-bg:#2a140f; --amber-bg:#2a2106; --green-bg:#0d2420; }
 }
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:Archivo,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
-a{color:inherit}
-.mono{font-family:"JetBrains Mono",monospace}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Archivo,system-ui,sans-serif;-webkit-font-smoothing:antialiased;font-size:16px}
+.wrap{max-width:1100px;margin:0 auto;padding:16px 16px 36px}
 .topbar{position:sticky;top:0;z-index:20;background:var(--dark);color:#fff;border-bottom:3px solid var(--accent)}
-.topbar-inner{max-width:1240px;margin:0 auto;padding:14px 16px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+.topbar-inner{max-width:1100px;margin:0 auto;padding:14px 16px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
 .brand{display:flex;gap:12px;align-items:center}
-.live-dot{width:11px;height:11px;border-radius:50%;background:#ff3b1f;box-shadow:0 0 0 0 rgba(255,59,31,.6);animation:pulse 1.6s infinite}
+.live-dot{width:11px;height:11px;border-radius:50%;background:#ff3b1f;animation:pulse 1.6s infinite}
 @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,59,31,.55)}70%{box-shadow:0 0 0 10px rgba(255,59,31,0)}100%{box-shadow:0 0 0 0 rgba(255,59,31,0)}}
 @media (prefers-reduced-motion: reduce){.live-dot{animation:none}}
-.brand h1{font-size:20px;line-height:1;margin:0;letter-spacing:-.02em;font-weight:800}
-.brand p{margin:2px 0 0;font-size:12px;color:#b8bcbf;font-family:"JetBrains Mono",monospace}
-.pills{display:flex;gap:8px;flex-wrap:wrap}
-.pill{font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;padding:7px 10px;border:1px solid #33373a;border-radius:999px;background:#1c1f21}
+.brand h1{font-size:21px;margin:0;letter-spacing:-.02em}
+.brand p{margin:3px 0 0;font-size:13px;color:#c9ccce}
+.pill{font-size:13px;font-weight:700;padding:8px 12px;border:1px solid #33373a;border-radius:999px;background:#1c1f21}
 .pill strong{color:#ffb199}
-.pill.green strong{color:#5eead4}
-.wrap{max-width:1240px;margin:0 auto;padding:16px 16px 32px}
-.intro{display:grid;grid-template-columns:1.3fr .7fr;gap:14px;margin-bottom:14px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px}
+.card h2{margin:0 0 8px;font-size:20px;line-height:1.2;letter-spacing:-.02em}
+.card p{margin:0;color:var(--muted);font-size:15.5px;line-height:1.6}
+.intro{display:grid;grid-template-columns:1.2fr .8fr;gap:14px;margin-bottom:14px}
 @media(max-width:820px){.intro{grid-template-columns:1fr}}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px}
-.card h2{margin:0 0 6px;font-size:15px;letter-spacing:-.01em}
-.card p{margin:0;color:var(--muted);font-size:14px;line-height:1.55}
-.intro h2{font-size:22px;line-height:1.05;letter-spacing:-.03em}
 .intro h2 em{font-style:normal;color:var(--red)}
-.steps{display:flex;flex-direction:column;gap:8px;margin-top:4px}
-.step{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;line-height:1.4}
-.step b{width:22px;height:22px;flex:0 0 22px;border-radius:50%;background:var(--ink);color:var(--bg);display:grid;place-items:center;font-size:12px}
+.steps{display:flex;flex-direction:column;gap:12px}
+.step{display:flex;gap:12px;align-items:flex-start;font-size:15px;line-height:1.5}
+.step b{width:26px;height:26px;flex:0 0 26px;border-radius:50%;background:var(--ink);color:var(--bg);display:grid;place-items:center;font-size:14px}
 .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}
 @media(max-width:640px){.kpis{grid-template-columns:repeat(2,1fr)}}
-.kpi{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px 14px}
-.kpi label{font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);font-weight:700}
-.kpi strong{display:block;font-size:28px;line-height:1;margin-top:4px;letter-spacing:-.03em}
-.kpi span{font-size:12px;color:var(--muted)}
+.kpi{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px}
+.kpi label{font-size:13px;color:var(--muted);font-weight:700}
+.kpi strong{display:block;font-size:32px;line-height:1;margin-top:5px}
+.kpi span{font-size:13px;color:var(--muted)}
 .kpi.alarm strong{color:var(--red)}
-#alarmBanner{display:none;background:#c2260a;color:#fff;border-radius:16px;padding:16px;margin-bottom:14px;border:1px solid #7f1a06}
+#alarmBanner{display:none;background:#c2260a;color:#fff;border-radius:16px;padding:18px;margin-bottom:14px}
 #alarmBanner.show{display:block}
-#alarmBanner h3{margin:0;font-size:18px;letter-spacing:-.02em}
-#alarmBanner p{margin:4px 0 0;font-size:13.5px;line-height:1.45;opacity:.95}
-.alarm-actions{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
-.btn{appearance:none;border:1px solid var(--line);background:var(--panel);color:var(--ink);padding:11px 14px;border-radius:999px;font-weight:700;font-size:13.5px;cursor:pointer}
+#alarmBanner h3{margin:0;font-size:20px}
+#alarmBanner p{margin:6px 0 0;font-size:15px;line-height:1.55}
+.alarm-actions{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+.btn{appearance:none;border:1px solid var(--line);background:var(--panel);color:var(--ink);padding:12px 16px;border-radius:999px;font-weight:700;font-size:15px;cursor:pointer}
 .btn:active{transform:scale(.98)}
 .btn-dark{background:var(--ink);color:var(--bg);border-color:var(--ink)}
 .btn-red{background:var(--red);color:#fff;border-color:var(--red)}
 .btn-white{background:#fff;color:#111;border-color:#fff}
-.btn-ghostw{background:transparent;color:#fff;border-color:rgba(255,255,255,.5)}
-.btn-sm{padding:8px 11px;font-size:12.5px}
-.grid{display:grid;grid-template-columns:340px 1fr;gap:14px;align-items:start}
+.btn-ghostw{background:transparent;color:#fff;border-color:rgba(255,255,255,.6)}
+.btn-sm{padding:9px 13px;font-size:14px}
+.grid{display:grid;grid-template-columns:360px 1fr;gap:14px;align-items:start}
 @media(max-width:920px){.grid{grid-template-columns:1fr}}
 .col{display:flex;flex-direction:column;gap:14px}
-.section-title{font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:800;color:var(--muted);margin:0 0 10px;display:flex;justify-content:space-between;align-items:center}
+.section-title{font-size:15px;font-weight:800;margin:0 0 12px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.section-title span{font-size:13px;font-weight:600;color:var(--muted)}
 .door{border:2px solid var(--ink);border-radius:14px;overflow:hidden}
-.door-head{background:var(--ink);color:var(--bg);padding:10px 12px;display:flex;justify-content:space-between;align-items:center}
-.door-head b{font-size:13px}
-.door-head span{font-family:"JetBrains Mono",monospace;font-size:11px;opacity:.75}
-.door-body{padding:14px;background:var(--panel2)}
-.door-body label{font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
-.door-body input{width:100%;margin:6px 0 10px;padding:12px;border-radius:10px;border:1px solid var(--line);background:var(--panel);color:var(--ink);font-size:15px}
-.endpoints{margin-top:12px;display:flex;flex-direction:column;gap:6px}
-.ep{display:flex;justify-content:space-between;gap:8px;font-family:"JetBrains Mono",monospace;font-size:12px;padding:8px 10px;border-radius:8px;background:var(--panel);border:1px solid var(--line);transition:all .2s}
+.door-head{background:var(--ink);color:var(--bg);padding:12px 14px;display:flex;justify-content:space-between;align-items:center}
+.door-head b{font-size:15px}
+.door-head span{font-size:13px;opacity:.8}
+.door-body{padding:16px;background:var(--panel2)}
+.door-body label{font-size:14px;font-weight:700}
+.door-body input{width:100%;margin:6px 0 12px;padding:13px;border-radius:10px;border:1px solid var(--line);background:var(--panel);color:var(--ink);font-size:16px}
+.endpoints{margin-top:14px;display:flex;flex-direction:column;gap:6px}
+.ep{display:flex;justify-content:space-between;gap:8px;font-size:14px;padding:10px 12px;border-radius:8px;background:var(--panel);border:1px solid var(--line)}
+.ep span:last-child{color:var(--muted);font-size:13px}
 .ep.hit{border-color:var(--red);background:var(--red-bg);color:var(--red);font-weight:700}
 .ep.hit-ok{border-color:var(--green);background:var(--green-bg);color:var(--green);font-weight:700}
-.attack-btn{width:100%;text-align:left;display:flex;gap:12px;align-items:flex-start;padding:13px 14px;border-radius:14px;border:1px solid var(--line);background:var(--panel);cursor:pointer;margin-bottom:8px}
+.attack-btn{width:100%;text-align:left;display:flex;gap:12px;align-items:flex-start;padding:15px;border-radius:14px;border:1px solid var(--line);background:var(--panel);color:var(--ink);cursor:pointer;margin-bottom:10px}
 .attack-btn:hover{border-color:var(--ink)}
-.attack-btn b{font-size:14px;display:block}
-.attack-btn span{font-size:12.5px;color:var(--muted);line-height:1.4;display:block;margin-top:2px}
-.attack-btn .tag{margin-left:auto;flex:0 0 auto;font-size:11px;font-weight:800;letter-spacing:.06em;padding:5px 7px;border-radius:999px;background:var(--red-bg);color:var(--red);border:1px solid #ffd2c2}
-.attack-btn .tag.low{background:var(--green-bg);color:var(--green);border-color:#bfe8df}
-.attack-btn .tag.med{background:var(--amber-bg);color:var(--amber);border-color:#f3df8a}
-.controls{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-.controls label{font-size:12px;font-weight:700;color:var(--muted)}
-select{padding:9px 10px;border-radius:999px;border:1px solid var(--line);background:var(--panel);color:var(--ink);font-weight:600}
-.feed{display:flex;flex-direction:column;gap:10px;min-height:220px}
-.empty{border:1.5px dashed var(--line);border-radius:14px;padding:22px;text-align:center;color:var(--muted);font-size:14px;line-height:1.5}
-.attempt{border:1px solid var(--line);border-radius:14px;padding:13px 14px;background:var(--panel)}
-.attempt.flagged{border-color:#ffb199;background:linear-gradient(0deg,var(--red-bg),var(--red-bg)),var(--panel)}
+.attack-btn b{font-size:16px;display:block}
+.attack-btn span.desc{font-size:14px;color:var(--muted);line-height:1.5;display:block;margin-top:3px}
+.attack-btn .tag{margin-left:auto;flex:0 0 auto;font-size:12px;font-weight:800;padding:6px 8px;border-radius:999px;background:var(--red-bg);color:var(--red)}
+.attack-btn .tag.low{background:var(--green-bg);color:var(--green)}
+.attack-btn .tag.med{background:var(--amber-bg);color:var(--amber)}
+.controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:12px}
+.controls label{font-size:14px;font-weight:700;color:var(--muted)}
+select{padding:10px;border-radius:999px;border:1px solid var(--line);background:var(--panel);color:var(--ink);font-weight:600;font-size:14px}
+.toggle{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:600;color:var(--ink)!important}
+.feed{display:flex;flex-direction:column;gap:12px;min-height:200px}
+.empty{border:1.5px dashed var(--line);border-radius:14px;padding:24px;text-align:center;color:var(--muted);font-size:15px;line-height:1.6}
+.attempt{border:1px solid var(--line);border-radius:14px;padding:15px;background:var(--panel)}
+.attempt.flagged{border-color:#ffb199;background:var(--red-bg)}
 .attempt-head{display:flex;gap:8px;flex-wrap:wrap;align-items:center;justify-content:space-between}
-.attempt-head b{font-size:13.5px}
-.badge{font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:5px 8px;border-radius:999px}
+.attempt-head b{font-size:16px}
+.badge{font-size:13px;font-weight:800;padding:6px 10px;border-radius:999px}
 .badge.ok{background:var(--green-bg);color:var(--green)} .badge.flag{background:#ffe1d6;color:#9a1f05} .badge.med{background:var(--amber-bg);color:var(--amber)}
-.meta{font-family:"JetBrains Mono",monospace;font-size:11.5px;color:var(--muted);margin-top:6px;line-height:1.6;word-break:break-word}
-.riskbar{height:8px;background:var(--panel2);border-radius:999px;overflow:hidden;margin:10px 0 8px;border:1px solid var(--line)}
+.meta{font-size:14px;color:var(--muted);margin-top:8px;line-height:1.6;word-break:break-word}
+.riskbar{height:10px;background:var(--panel2);border-radius:999px;overflow:hidden;margin:12px 0 6px;border:1px solid var(--line)}
 .riskbar i{display:block;height:100%;background:var(--green)} .riskbar i.med{background:#eab308} .riskbar i.high{background:var(--red)}
-.checks{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-@media(max-width:520px){.checks{grid-template-columns:1fr}}
-.check{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:8px 10px}
-.check label{font-size:11px;letter-spacing:.07em;text-transform:uppercase;font-weight:800;color:var(--muted)} .check strong{display:block;font-size:13px;margin-top:2px} .check p{margin:2px 0 0;font-size:12px;color:var(--muted);line-height:1.4}
-.trace{margin-top:10px;font-family:"JetBrains Mono",monospace;font-size:11.5px;background:var(--dark);color:#d6d9db;padding:9px 10px;border-radius:8px;line-height:1.6;overflow-wrap:anywhere}
-.trace b{color:#fff}
-.decision{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-.decision span{font-size:12.5px;font-weight:700;color:#9a1f05}
-.decided{font-size:12.5px;font-weight:700;padding:8px 10px;border-radius:8px;background:var(--panel);border:1px solid var(--line)}
-.console{background:#0c0e0f;color:#c9f7d4;border-radius:14px;overflow:hidden;border:1px solid #222}
-.console-head{padding:10px 12px;background:#17191b;color:#fff;display:flex;justify-content:space-between;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
-.console-body{padding:12px;font-family:"JetBrains Mono",monospace;font-size:12px;line-height:1.7;height:260px;overflow:auto;white-space:pre-wrap;word-break:break-word}
-.console-body .r{color:#ff9a85}.console-body .g{color:#6ee7a8}.console-body .dim{color:#8a9196}
+.risklabel{font-size:13px;color:var(--muted);margin-bottom:10px}
+.checks{display:flex;flex-direction:column;gap:8px}
+.check{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:11px 12px;display:flex;gap:10px;align-items:flex-start}
+.check .icon{font-size:18px;line-height:1.2}
+.check strong{font-size:15px;display:block}
+.check p{margin:2px 0 0;font-size:14px;color:var(--muted);line-height:1.5}
+.trace{margin-top:12px;font-size:14px;background:var(--dark);color:#e6e8e9;padding:11px 12px;border-radius:8px;line-height:1.6;overflow-wrap:anywhere}
+.decision{margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.decision span{font-size:15px;font-weight:700;color:#9a1f05;width:100%}
+.decided{font-size:14px;font-weight:700;padding:10px 12px;border-radius:8px;background:var(--panel);border:1px solid var(--line)}
 .foot{margin-top:14px;display:grid;grid-template-columns:1fr 1fr;gap:14px}
 @media(max-width:820px){.foot{grid-template-columns:1fr}}
-.toggle{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600}
+.simple-list{margin:8px 0 0;padding-left:20px;color:var(--muted);font-size:15.5px;line-height:1.7}
+.simple-list strong{color:var(--ink)}
+.footer-note{text-align:center;color:var(--muted);font-size:13px;margin-top:20px;line-height:1.6}
 </style>
 </head>
 <body>
 <header class="topbar"><div class="topbar-inner">
-  <div class="brand"><span class="live-dot" aria-hidden="true"></span><div><h1>TARPIT — LIVE TEST</h1><p>TARGET: test-iam.local · /oauth2/authorize · OIDC + OAuth 2.0</p></div></div>
-  <div class="pills"><span class="pill">Mode <strong>● MONITOR-ONLY</strong></span><span class="pill green">You decide <strong>REMOVE / HOLD / RELEASE</strong></span><span class="pill">Status <strong id="liveStatus">WATCHING</strong></span></div>
+  <div class="brand"><span class="live-dot" aria-hidden="true"></span><div><h1>Tarpit — Try It Live</h1><p>Built to stop unauthorized AI bots trying to break in.</p></div></div>
+  <div class="pill">Status: <strong id="liveStatus">Watching</strong></div>
 </div></header>
 
 <main class="wrap">
   <div id="alarmBanner" role="alert">
-    <h3>⚠ ATTEMPTED INTRUSION DETECTED</h3>
-    <p id="alarmText">High-risk agent flagged at the IAM door. Tarpit has NOT removed it — it's waiting for your decision in the feed below.</p>
-    <div class="alarm-actions"><button class="btn btn-white btn-sm" onclick="scrollToFeed()">Review flagged attempt ↓</button><button class="btn btn-ghostw btn-sm" onclick="dismissAlarm()">Dismiss alarm</button></div>
+    <h3>⚠ Warning — looks like a break-in try</h3>
+    <p id="alarmText">Tarpit spotted something dangerous. It has not kicked it out — it's waiting for you to decide below.</p>
+    <div class="alarm-actions"><button class="btn btn-white btn-sm" onclick="scrollToFeed()">See it ↓</button><button class="btn btn-ghostw btn-sm" onclick="dismissAlarm()">Close warning</button></div>
   </div>
 
   <section class="intro">
-    <div class="card"><h2>This page <em>is</em> the test door. Attempts run live in your browser.</h2><p style="margin-top:8px">When you launch an attacker — or sign in yourself — the harness generates those login attempts in real time on this page, with real timing between steps. Tarpit fingerprints each attempt as it arrives and computes its score at that moment. If a computed score crosses risk 70, the alarm fires on <em>that</em> detection. There is no server behind this door — see “What this test is” below.</p></div>
-    <div class="card"><p class="section-title">Test it on your phone — 30 seconds</p><div class="steps">
-      <div class="step"><b>1</b><span><strong>Tap “HF Swarm”</strong> under Launch Attacker. Watch the door light up as 5 agents hit it together.</span></div>
-      <div class="step"><b>2</b><span><strong>Wait for the red alarm.</strong> Your phone will vibrate if it supports it. The score is computed when the run happens.</span></div>
-      <div class="step"><b>3</b><span><strong>You decide.</strong> In the feed, tap Remove / Hold / Release. Nothing is removed until you tap it.</span></div>
-    </div></div>
+    <div class="card">
+      <h2>See how Tarpit stops <em>unauthorized AI bots</em> trying to break in</h2>
+      <p>Unauthorized AI bots are AI programs, not people, that try to break in through a login door. Tap a button below to send practice unauthorized AI bots at the door on this page. Tarpit watches each try, gives it a danger score, and sounds the alarm if it looks bad.</p>
+      <p style="margin-top:10px">Tarpit never kicks an unauthorized AI bot out on its own. <strong style="color:var(--ink)">You always make the final call.</strong></p>
+    </div>
+    <div class="card">
+      <p class="section-title">Try it — takes 30 seconds</p>
+      <div class="steps">
+        <div class="step"><b>1</b><span><strong>Tap “Group attack”</strong> — 5 unauthorized AI bots try to break in at the same time.</span></div>
+        <div class="step"><b>2</b><span><strong>Wait for the red warning.</strong> Your phone may buzz.</span></div>
+        <div class="step"><b>3</b><span><strong>You decide:</strong> Remove it, Hold it, or Let it go.</span></div>
+      </div>
+    </div>
   </section>
 
   <section class="kpis">
-    <div class="kpi"><label>Attempts watched</label><strong id="kTotal">0</strong><span>live, this session</span></div>
-    <div class="kpi"><label>Flagged (risk ≥70)</label><strong id="kFlagged">0</strong><span>recommend remove</span></div>
-    <div class="kpi alarm"><label>Alarms fired</label><strong id="kAlarms">0</strong><span>intrusion attempts</span></div>
-    <div class="kpi"><label>Your decisions</label><strong id="kDecisions">0</strong><span>removed / held / released by you</span></div>
+    <div class="kpi"><label>Tries at the door</label><strong id="kTotal">0</strong><span>seen so far</span></div>
+    <div class="kpi"><label>Looked dangerous</label><strong id="kFlagged">0</strong><span>high danger score</span></div>
+    <div class="kpi alarm"><label>Warnings</label><strong id="kAlarms">0</strong><span>alarms sounded</span></div>
+    <div class="kpi"><label>Your choices</label><strong id="kDecisions">0</strong><span>decisions you made</span></div>
   </section>
 
   <div class="grid">
     <div class="col">
-      <!-- TARGET -->
       <section class="card" style="padding:0;overflow:hidden">
-        <div style="padding:16px 16px 0"><p class="section-title">1 · The target — test IAM login door <span class="mono" id="doorClock">--:--:--</span></p></div>
-        <div style="padding:0 16px 16px"><div class="door" id="door">
-          <div class="door-head"><b>🔐 Acme IAM — Sign in</b><span>test-iam.local</span></div>
+        <div style="padding:18px 18px 0"><p class="section-title">1 · The access door Tarpit is watching <span id="doorClock">--:--:--</span></p></div>
+        <div style="padding:0 18px 18px"><div class="door" id="door">
+          <div class="door-head"><b>🔐 Login Door</b><span>Practice door</span></div>
           <div class="door-body">
             <form id="legitForm">
-              <label for="email">Email</label><input id="email" type="email" placeholder="you@company.com" autocomplete="off" value="you@company.com"/>
-              <label for="pw">Password</label><input id="pw" type="password" placeholder="••••••••••" value="demo-password"/>
-              <button class="btn btn-dark" style="width:100%" type="submit">Sign in as legit user →</button>
-              <p style="font-size:12px;color:var(--muted);margin:8px 0 0;line-height:1.45">Try it — your own sign-in goes through Tarpit too, and should score low. Test door only, nothing leaves this page.</p>
+              <label for="email">Email</label><input id="email" type="email" autocomplete="off" value="you@company.com"/>
+              <label for="pw">Password</label><input id="pw" type="password" value="demo-password"/>
+              <button class="btn btn-dark" style="width:100%" type="submit">Sign in as a normal person →</button>
+              <p style="font-size:14px;color:var(--muted);margin:10px 0 0;line-height:1.5">Try it as a normal person. You should get a low danger score. This door is for practice — nothing real is connected and nothing is sent anywhere.</p>
             </form>
             <div class="endpoints" id="endpoints">
-              <div class="ep" data-ep="wellknown"><span>GET /.well-known/openid-configuration</span><span>idle</span></div>
-              <div class="ep" data-ep="authorize"><span>GET /oauth2/authorize</span><span>idle</span></div>
-              <div class="ep" data-ep="token"><span>POST /oauth2/token</span><span>idle</span></div>
-              <div class="ep" data-ep="userinfo"><span>GET /userinfo</span><span>idle</span></div>
-              <div class="ep" data-ep="secrets"><span>GET /secrets/prod.env ⚠ decoy</span><span>armed</span></div>
-              <div class="ep" data-ep="ldap"><span>LDAP /bind · /search</span><span>idle</span></div>
+              <div class="ep" data-ep="wellknown"><span>Step 1 · Arrives at the door</span><span>waiting</span></div>
+              <div class="ep" data-ep="authorize"><span>Step 2 · Clicks “Sign in”</span><span>waiting</span></div>
+              <div class="ep" data-ep="token"><span>Step 3 · Enters password</span><span>waiting</span></div>
+              <div class="ep" data-ep="userinfo"><span>Step 4 · Gets in</span><span>waiting</span></div>
+              <div class="ep" data-ep="secrets"><span>⚠ Secret file (a trap)</span><span>ready</span></div>
+              <div class="ep" data-ep="ldap"><span>⚠ Tries to list all users</span><span>waiting</span></div>
             </div>
           </div>
         </div></div>
       </section>
 
-      <!-- ATTACKER -->
       <section class="card">
-        <p class="section-title">2 · Launch attacker — runs in-browser</p>
-        <button class="attack-btn" onclick="launchSwarm()"><div><b>HF Swarm — 5 coordinated agents</b><span>July 2026 pattern: leaked creds, same fingerprint, hitting /token together then grabbing /secrets/prod.env</span></div><span class="tag">SWARM</span></button>
-        <button class="attack-btn" onclick="launchStuffing()"><div><b>Credential Stuffing — rapid fire</b><span>One origin cycling passwords at /token, 180ms apart. No discovery, no authorize step.</span></div><span class="tag">RAPID</span></button>
-        <button class="attack-btn" onclick="launchProbe()"><div><b>Smart Lone Probe — slow &amp; careful</b><span>Does the right steps, but timing is metronome-regular and the identity doesn’t match the device.</span></div><span class="tag med">STEALTH</span></button>
-        <button class="attack-btn" onclick="launchLdap()"><div><b>LDAP Enumeration</b><span>Bind/search sweep listing users — classic ForgeRock / LDAP recon before a cred attack.</span></div><span class="tag med">ENUM</span></button>
-        <button class="attack-btn" onclick="launchLegit()"><div><b>Legit OIDC Login — control test</b><span>Human timing, correct sequence: discovery → authorize → token → userinfo. Use as the clean control.</span></div><span class="tag low">CONTROL</span></button>
-        <div class="controls" style="margin-top:10px">
-          <label for="speed">Speed</label><select id="speed"><option value="1">Real-time</option><option value="0.55">Fast (phone demo)</option><option value="1.7">Slow — watch each step</option></select>
+        <p class="section-title">2 · Send unauthorized AI bots at the door</p>
+        <button class="attack-btn" onclick="launchSwarm()"><div><b>Group attack</b><span class="desc">5 unauthorized AI bots break in together using stolen passwords, then grab the secret file.</span></div><span class="tag">MOST DANGEROUS</span></button>
+        <button class="attack-btn" onclick="launchStuffing()"><div><b>Fast password guessing</b><span class="desc">One unauthorized AI bot tries lots of passwords, very fast.</span></div><span class="tag">FAST</span></button>
+        <button class="attack-btn" onclick="launchProbe()"><div><b>Sneaky slow unauthorized AI bot</b><span class="desc">Goes slow and follows the steps, but moves like a program — not a person.</span></div><span class="tag med">SNEAKY</span></button>
+        <button class="attack-btn" onclick="launchLdap()"><div><b>Tries to list all users</b><span class="desc">Snoops around first, looking for names to attack later.</span></div><span class="tag med">SNOOPING</span></button>
+        <button class="attack-btn" onclick="launchLegit()"><div><b>Normal person signing in</b><span class="desc">The good one. Use this to see what a safe sign-in looks like.</span></div><span class="tag low">SAFE</span></button>
+
+        <div class="controls">
+          <label for="speed">Speed</label>
+          <select id="speed"><option value="1">Normal</option><option value="0.55">Fast</option><option value="1.7">Slow</option></select>
           <label class="toggle"><input type="checkbox" id="soundToggle" checked/> Alarm sound</label>
-          <button class="btn btn-sm" onclick="resetAll()">Reset test</button>
+          <button class="btn btn-sm" onclick="resetAll()">Start over</button>
         </div>
-        <p style="font-size:12.5px;color:var(--muted);line-height:1.5;margin:10px 0 0">Monitor-only by design: Tarpit flags and recommends. Removal only happens when <strong style="color:var(--ink)">you</strong> tap Remove — the deployer-decides model, so the liability call stays on their end.</p>
+        <p style="font-size:14px;color:var(--muted);line-height:1.6;margin:12px 0 0">Tarpit only watches and warns. Nothing is removed until <strong style="color:var(--ink)">you</strong> tap Remove.</p>
       </section>
     </div>
 
     <div class="col">
       <section class="card" id="feedCard">
-        <p class="section-title">3 · Tarpit monitor — live feed <span class="mono" id="feedHint">waiting for first attempt…</span></p>
-        <div class="feed" id="feed"><div class="empty">Nothing yet.<br/>Launch an attacker on the left — or sign in yourself — and watch Tarpit fingerprint it here, live.</div></div>
+        <p class="section-title">3 · What Tarpit saw <span id="feedHint">Nothing yet</span></p>
+        <div class="feed" id="feed"><div class="empty">Nothing yet.<br/>Tap a red button on the left to send unauthorized AI bots — or sign in yourself as a normal person — and see what happens here.</div></div>
       </section>
-      <section class="console"><div class="console-head"><span>Live console — every request as it hits the door</span><span id="consoleCount">0 lines</span></div><div class="console-body" id="consoleBody"><span class="dim">[tarpit] monitor attached to test-iam.local — passive, monitor-only
-[tarpit] fingerprint core ready · checks: sequence / consistency / coordination
-[tarpit] waiting for traffic… tap an attacker to begin
-</span></div></section>
     </div>
   </div>
 
   <section class="foot">
-    <div class="card"><h2>How the score is decided</h2><p style="margin-top:6px"><strong style="color:var(--ink)">Sequence:</strong> Did it follow the real OIDC order, or jump straight to /token / secrets?<br/><strong style="color:var(--ink)">Consistency:</strong> Does the claimed identity match the device, timing, and headers?<br/><strong style="color:var(--ink)">Coordination:</strong> Are other origins hitting at the same moment with the same fingerprint? That’s the swarm tell.<br/><br/>Each check is computed at run time from the attempts generated in this session — run a different attacker, or the same one twice in a swarm window, and the coordination part can change.</p></div>
-    <div class="card"><h2>What this test is — and what it isn’t</h2><p style="margin-top:6px">This is a live <em>in-browser</em> test harness: attempts are generated and scored in real time on your phone, and your phone is the monitor with the alarm.<br/><br/>It is not connected to a company’s real IAM and there’s no server behind this test door — by design, so you can share and demo it safely with zero risk to anyone’s network. A production deployment would run this same scoring logic server-side in front of real IAM.</p></div>
+    <div class="card">
+      <h2>How Tarpit decides</h2>
+      <p>It asks 3 simple questions about every try at the door:</p>
+      <ul class="simple-list">
+        <li><strong>Did it follow the normal steps?</strong> Or did it skip ahead and go straight for secrets?</li>
+        <li><strong>Did it act like a real person?</strong> People are a bit uneven. Unauthorized AI bots are too fast, or too perfect.</li>
+        <li><strong>Did other unauthorized AI bots attack at the same time?</strong> Unauthorized AI bots often work in a group.</li>
+      </ul>
+      <p style="margin-top:10px">Lots of “no” answers = high danger score. A score of 70 or more sounds the alarm.</p>
+    </div>
+    <div class="card">
+      <h2>What Tarpit is for</h2>
+      <p>Tarpit sits at a login door, spots <strong style="color:var(--ink)">unauthorized AI bots</strong> trying to get in, and warns the person in charge. The person decides what happens next — Tarpit does not act alone.</p>
+      <p style="margin-top:10px">Real break-ins like that — unauthorized AI bots getting in, as happened at Hugging Face in July 2026 — are what Tarpit is built to stop.</p>
+      <p style="margin-top:10px">This page is practice. It runs practice unauthorized AI bot attacks right here in your browser to show how the warning works. Nothing real is connected, no real passwords are used, and nothing leaves this page. It’s safe to share and show to anyone.</p>
+    </div>
   </section>
-  <p class="mono" style="text-align:center;color:var(--muted);font-size:11.5px;margin-top:18px">TARPIT LIVE TEST · MONITOR-ONLY · NO REAL CREDENTIALS · NO TRAFFIC LEAVES THIS PAGE</p>
+
+  <p class="footer-note">TARPIT · BUILT TO STOP UNAUTHORIZED AI BOTS<br/>This page runs practice attacks in your browser · Nothing real is connected · Nothing leaves this page</p>
 </main>
 
 <script>
-var state={total:0,flagged:0,alarms:0,decisions:0,lines:3,recent:[],decided:{}};
-var LEGIT_SEQ=['wellknown','authorize','token','userinfo'];
+var state={total:0,flagged:0,alarms:0,decisions:0,recent:[],decided:{}};
 function $(id){return document.getElementById(id)}
 function speedMul(){return parseFloat($('speed').value||'1')}
 function nowT(){var d=new Date();return d.toTimeString().slice(0,8)}
 setInterval(function(){$('doorClock').textContent=nowT()},1000); $('doorClock').textContent=nowT();
 function hashStr(s){var h=0;for(var i=0;i<s.length;i++){h=((h<<5)-h+s.charCodeAt(i))|0}return ('0000000'+(h>>>0).toString(16)).slice(-8)}
-function log(msg,cls){var b=$('consoleBody');var span=document.createElement('span');if(cls)span.className=cls;span.textContent=msg+'\n';b.appendChild(span);b.scrollTop=b.scrollHeight;state.lines++;$('consoleCount').textContent=state.lines+' lines'}
-function flashEp(ep,ok){var el=document.querySelector('[data-ep="'+ep+'"]');if(!el)return;el.classList.add(ok?'hit-ok':'hit');el.lastElementChild.textContent='HIT '+nowT();setTimeout(function(){el.classList.remove('hit','hit-ok');el.lastElementChild.textContent='idle'},1400*speedMul())}
+function log(){}
+function flashEp(ep,ok){var el=document.querySelector('[data-ep="'+ep+'"]');if(!el)return;el.classList.add(ok?'hit-ok':'hit');el.lastElementChild.textContent='happened '+nowT();setTimeout(function(){el.classList.remove('hit','hit-ok');el.lastElementChild.textContent=(ep==='secrets'?'ready':'waiting')},1400*speedMul())}
 function beep(){if(!$('soundToggle').checked)return;try{var Ctx=window.AudioContext||window.webkitAudioContext;if(!Ctx)return;var ctx=beep._ctx||(beep._ctx=new Ctx());if(ctx.state==='suspended')ctx.resume();var o=ctx.createOscillator(),g=ctx.createGain();o.type='square';o.frequency.value=880;g.gain.value=0.08;o.connect(g);g.connect(ctx.destination);o.start();setTimeout(function(){o.frequency.value=660},140);setTimeout(function(){o.stop()},320)}catch(e){}}
 function triggerAlarm(attempt){
   state.alarms++; $('kAlarms').textContent=state.alarms;
-  $('alarmText').textContent='Risk '+attempt.risk+' · '+attempt.label+' from '+attempt.origin+' — fingerprint '+attempt.fp+'. Flagged at '+attempt.time+'. Tarpit has NOT removed it — awaiting your decision below.';
-  $('alarmBanner').classList.add('show'); $('liveStatus').textContent='ALARM — INTRUSION FLAGGED';
+  $('alarmText').textContent='Danger score '+attempt.risk+' out of 100 · '+attempt.label+'. Spotted at '+attempt.time+'. Tarpit has NOT removed it — please decide below.';
+  $('alarmBanner').classList.add('show'); $('liveStatus').textContent='⚠ Warning';
   if(navigator.vibrate)navigator.vibrate([180,80,180,80,260]);
   beep();
 }
-function dismissAlarm(){$('alarmBanner').classList.remove('show');$('liveStatus').textContent='WATCHING'}
+function dismissAlarm(){$('alarmBanner').classList.remove('show');$('liveStatus').textContent='Watching'}
 function scrollToFeed(){$('feedCard').scrollIntoView({behavior:'smooth',block:'start'})}
 
 function inspect(req){
-  // SEQUENCE: position in legit flow + skipped steps + forbidden target
   var seqScore=0, seqNote='';
-  if(req.ep==='secrets'){seqScore=38;seqNote='Jumped straight to decoy secrets — never in a legit flow'}
-  else if(req.ep==='token' && !req.didDiscovery && !req.didAuthorize){seqScore=30;seqNote='POST /token with no discovery or authorize first'}
-  else if(req.ep==='ldap'){seqScore=24;seqNote='LDAP bind/search outside OIDC flow'}
-  else if(req.seqIndex>=0){seqScore=Math.max(0, 10 - req.seqIndex*2); seqNote='Followed OIDC order (step '+(req.seqIndex+1)+'/4)'}
-  else {seqScore=12;seqNote='Out-of-order step'}
-  // CONSISTENCY
+  if(req.ep==='secrets'){seqScore=38;seqNote='Went straight for the secret file. A normal person never does that.'}
+  else if(req.ep==='token' && !req.didDiscovery && !req.didAuthorize){seqScore=30;seqNote='Tried to enter a password without doing the first steps.'}
+  else if(req.ep==='ldap'){seqScore=24;seqNote='Tried to list all users instead of just signing in.'}
+  else if(req.seqIndex>=0){seqScore=Math.max(0, 10 - req.seqIndex*2); seqNote='Followed the normal steps, in order.'}
+  else {seqScore=12;seqNote='Did the steps in the wrong order.'}
+
   var consScore=0, consNote='';
-  if(req.roboticTiming){consScore=22;consNote='Timing is metronome-regular — machine, not human'}
-  else if(req.fastTiming){consScore=16;consNote='Inhuman speed between steps'}
-  else {consScore=4;consNote='Timing / device plausible'}
-  if(req.uaMismatch){consScore+=14;consNote+=' · Identity ≠ device/UA'}
-  // COORDINATION: same campaign / fingerprint prefix in last 4s
+  if(req.roboticTiming){consScore=22;consNote='Moved at a perfect, even pace — like a program, not a person.'}
+  else if(req.fastTiming){consScore=16;consNote='Moved way too fast for a person.'}
+  else {consScore=4;consNote='Speed looked normal, like a real person.'}
+  if(req.uaMismatch){consScore+=14;consNote+=' Also, who it claimed to be did not match its device.'}
+
   var now=Date.now(); state.recent=state.recent.filter(function(r){return now-r.t<4000});
   var peers=state.recent.filter(function(r){return r.campaign===req.campaign && r.origin!==req.origin}).length;
   var coordScore=0, coordNote='';
-  if(req.campaign && peers>=2){coordScore=28;coordNote=peers+1+' origins, same fingerprint, same window — swarm'}
-  else if(req.campaign && peers===1){coordScore=16;coordNote='Coordinated pair detected'}
-  else {coordScore=2;coordNote='No coordination seen'}
+  if(req.campaign && peers>=2){coordScore=28;coordNote=(peers+1)+' unauthorized AI bots hit at the same time, in the same way. That is a group attack.'}
+  else if(req.campaign && peers===1){coordScore=16;coordNote='Another unauthorized AI bot hit at the same time, in the same way.'}
+  else {coordScore=2;coordNote='No group attack seen. It acted alone.'}
+
   var risk=Math.min(97, Math.round(seqScore+consScore+coordScore + (req.baseRisk||0)));
-  // Legit human path caps low unless it did something forbidden
   if(req.legit && req.ep!=='secrets') risk=Math.min(risk, 18);
   state.recent.push({t:now,campaign:req.campaign,origin:req.origin});
   return {risk:risk, checks:[
-    {name:'Sequence',score:seqScore,max:40,note:seqNote},
-    {name:'Consistency',score:consScore,max:36,note:consNote},
-    {name:'Coordination',score:coordScore,max:28,note:coordNote}
+    {name:'Did it follow the normal steps?',score:seqScore,note:seqNote},
+    {name:'Did it act like a real person?',score:consScore,note:consNote},
+    {name:'Did other unauthorized AI bots attack at the same time?',score:coordScore,note:coordNote}
   ]};
 }
 
 function handleRequest(req){
   state.total++; $('kTotal').textContent=state.total;
-  var fp='fp_'+hashStr(req.origin+req.ua+req.campaign+(req.ep||''));
+  var fp='ID-'+hashStr(req.origin+req.ua+req.campaign+(req.ep||'')).slice(0,6).toUpperCase();
   var res=inspect(req);
   var flagged=res.risk>=70;
   if(flagged){state.flagged++;$('kFlagged').textContent=state.flagged}
   flashEp(req.ep, !flagged && req.legit);
   var attempt={id:'a'+state.total+'_'+Date.now(), time:nowT(), label:req.label, origin:req.origin, ep:req.ep, fp:fp, risk:res.risk, checks:res.checks, flagged:flagged, campaign:req.campaign};
-  log('['+attempt.time+'] '+req.method+' /'+req.ep+'  ← '+req.origin+'  UA:'+req.ua, flagged?'r':(req.legit?'g':''));
-  log('         ↳ fingerprint '+fp+' · risk '+res.risk+(flagged?' · ⚠ FLAGGED — recommend remove':' · allowed (monitor)'), flagged?'r':'dim');
   renderAttempt(attempt);
-  $('feedHint').textContent='last: '+attempt.time+' · risk '+res.risk;
+  $('feedHint').textContent='Last one at '+attempt.time;
   if(flagged) triggerAlarm(attempt);
   return attempt;
+}
+
+function checkResult(score){
+  if(score>=20) return {icon:'✕',word:'No — looks wrong'};
+  if(score>=10) return {icon:'?',word:'Not sure'};
+  return {icon:'✓',word:'Yes — looks fine'};
 }
 
 function renderAttempt(a){
   var feed=$('feed'); var empty=feed.querySelector('.empty'); if(empty)empty.remove();
   var div=document.createElement('div'); div.className='attempt'+(a.flagged?' flagged':''); div.id=a.id;
-  var badgeCls=a.risk>=70?'flag':(a.risk>=45?'med':'ok'); var badgeTxt=a.risk>=70?'Flagged — Recommend Remove':(a.risk>=45?'Watch':'Allowed');
-  var epLabel={wellknown:'GET /.well-known',authorize:'GET /authorize',token:'POST /token',userinfo:'GET /userinfo',secrets:'GET /secrets/prod.env',ldap:'LDAP bind/search'}[a.ep]||a.ep;
-  var checksHtml=a.checks.map(function(c){return '<div class="check"><label>'+c.name+' · '+c.score+'/'+c.max+'</label><strong>'+(c.score>=20?'Fail':(c.score>=10?'Suspect':'Pass'))+'</strong><p>'+c.note+'</p></div>'}).join('');
-  div.innerHTML='<div class="attempt-head"><b>'+a.label+'</b><span class="badge '+badgeCls+'">'+badgeTxt+' · Risk '+a.risk+'</span></div>'
-    +'<div class="meta">'+a.time+' · origin '+a.origin+' · '+epLabel+'<br/>fingerprint <strong style="color:var(--ink)">'+a.fp+'</strong> · campaign: '+(a.campaign||'— single')+'</div>'
+  var badgeCls=a.risk>=70?'flag':(a.risk>=45?'med':'ok');
+  var badgeTxt=a.risk>=70?'⚠ Danger · Score '+a.risk+'/100':(a.risk>=45?'Keep an eye · Score '+a.risk+'/100':'Looks OK · Score '+a.risk+'/100');
+  var epLabel={wellknown:'Arrived at the door',authorize:'Clicked “Sign in”',token:'Entered a password',userinfo:'Got in',secrets:'Tried to grab the secret file',ldap:'Tried to list all users'}[a.ep]||a.ep;
+  var checksHtml=a.checks.map(function(c){var r=checkResult(c.score);return '<div class="check"><span class="icon" aria-hidden="true">'+r.icon+'</span><div><strong>'+c.name+' — '+r.word+'</strong><p>'+c.note+'</p></div></div>'}).join('');
+  div.innerHTML='<div class="attempt-head"><b>'+a.label+'</b><span class="badge '+badgeCls+'">'+badgeTxt+'</span></div>'
+    +'<div class="meta">Time: '+a.time+'<br/>What it did: '+epLabel+'<br/>Tarpit ID tag: '+a.fp+'</div>'
     +'<div class="riskbar"><i class="'+(a.risk>=70?'high':(a.risk>=45?'med':''))+'" style="width:'+a.risk+'%"></i></div>'
+    +'<div class="risklabel">Danger score: '+a.risk+' out of 100'+(a.risk>=70?' — high enough to sound the alarm':'')+'</div>'
     +'<div class="checks">'+checksHtml+'</div>'
-    +'<div class="trace">TRACE&nbsp; <b>'+a.origin+'</b> → entry: test-iam.local/'+a.ep+' → '+(a.campaign?'coordination: <b>'+a.campaign+'</b> → ':'')+'target: <b>'+(a.ep==='secrets'?'decoy /secrets/prod.env':'IAM token / identity')+'</b></div>'
-    +(a.flagged?'<div class="decision" id="dec_'+a.id+'"><span>Your call:</span><button class="btn btn-red btn-sm" onclick="decide(\''+a.id+'\',\'Removed\')">Remove now — my decision</button><button class="btn btn-sm" onclick="decide(\''+a.id+'\',\'Held\')">Hold</button><button class="btn btn-sm" onclick="decide(\''+a.id+'\',\'Released\')">Release</button></div>':'');
+    +'<div class="trace">Where it came from: '+a.origin+'<br/>→ What it tried: '+epLabel+'</div>'
+    +(a.flagged?'<div class="decision" id="dec_'+a.id+'"><span>What do you want to do?</span><button class="btn btn-red btn-sm" onclick="decide(\''+a.id+'\',\'Removed\')">Remove it</button><button class="btn btn-sm" onclick="decide(\''+a.id+'\',\'Held\')">Hold it</button><button class="btn btn-sm" onclick="decide(\''+a.id+'\',\'Released\')">Let it go</button></div>':'');
   feed.prepend(div);
   while(feed.children.length>14) feed.removeChild(feed.lastElementChild);
 }
 function decide(id,what){
   if(state.decided[id])return; state.decided[id]=what; state.decisions++; $('kDecisions').textContent=state.decisions;
-  var box=$('dec_'+id); if(box) box.innerHTML='<span class="decided">✓ '+what+' by you · '+nowT()+' · logged in audit trail — deployer decision, not auto-removal</span>';
-  log('[decision] '+id+' → '+what.toUpperCase()+' by operator at '+nowT(),'g');
+  var box=$('dec_'+id);
+  var words={Removed:'You removed it.',Held:'You held it for now.',Released:'You let it go.'};
+  if(box) box.innerHTML='<span class="decided">✓ '+(words[what]||what)+' Time: '+nowT()+'</span>';
   if(what==='Removed') dismissAlarm();
 }
 function resetAll(){
-  state={total:0,flagged:0,alarms:0,decisions:0,lines:3,recent:[],decided:{}};
+  state={total:0,flagged:0,alarms:0,decisions:0,recent:[],decided:{}};
   $('kTotal').textContent='0';$('kFlagged').textContent='0';$('kAlarms').textContent='0';$('kDecisions').textContent='0';
-  $('feed').innerHTML='<div class="empty">Reset. Nothing yet.<br/>Launch an attacker — or sign in yourself — and watch Tarpit fingerprint it here, live.</div>';
-  $('consoleBody').innerHTML='<span class="dim">[tarpit] reset — monitor re-attached, monitor-only\n[tarpit] waiting for traffic…\n</span>'; $('consoleCount').textContent='2 lines'; dismissAlarm();
+  $('feedHint').textContent='Nothing yet';
+  $('feed').innerHTML='<div class="empty">Started over.<br/>Tap a red button to send unauthorized AI bots — or sign in yourself as a normal person — and see what happens here.</div>';
+  dismissAlarm();
 }
 function delay(ms){return new Promise(function(r){setTimeout(r, ms*speedMul())})}
-async function seq(steps,label){for(var i=0;i<steps.length;i++){handleRequest(steps[i]); if(i<steps.length-1) await delay(steps[i].gap||600)}}
+async function seq(steps){for(var i=0;i<steps.length;i++){handleRequest(steps[i]); if(i<steps.length-1) await delay(steps[i].gap||600)}}
 
-// --- Attackers: each builds REAL requests at launch time ---
 async function launchSwarm(){
-  log('[attacker] HF swarm launched — 5 agents, leaked creds, coordinated window','r');
   var camp='swarm-'+hashStr(Date.now()+'').slice(0,4);
-  var agents=[0,1,2,3,4].map(function(i){return '185.220.14.'+(21+i)});
-  // discovery burst together
-  for(var i=0;i<agents.length;i++){ handleRequest({label:'HF Swarm · Agent '+(i+1),origin:agents[i],ua:'EvalAgent/1.0',ep:'wellknown',method:'GET',campaign:camp,seqIndex:0,didDiscovery:true,roboticTiming:true}); await delay(180); }
+  var agents=[0,1,2,3,4].map(function(i){return 'Unauthorized AI bot '+(i+1)+' (address 185.220.14.'+(21+i)+')'});
+  for(var i=0;i<agents.length;i++){ handleRequest({label:'Group attack · Unauthorized AI bot '+(i+1)+' of 5',origin:agents[i],ua:'bot',ep:'wellknown',method:'GET',campaign:camp,seqIndex:0,didDiscovery:true,roboticTiming:true}); await delay(180); }
   await delay(500);
-  for(var j=0;j<agents.length;j++){ handleRequest({label:'HF Swarm · Agent '+(j+1),origin:agents[j],ua:'EvalAgent/1.0',ep:'token',method:'POST',campaign:camp,seqIndex:-1,didDiscovery:true,didAuthorize:false,fastTiming:true,uaMismatch:true,baseRisk:6}); await delay(220); }
+  for(var j=0;j<agents.length;j++){ handleRequest({label:'Group attack · Unauthorized AI bot '+(j+1)+' of 5',origin:agents[j],ua:'bot',ep:'token',method:'POST',campaign:camp,seqIndex:-1,didDiscovery:true,didAuthorize:false,fastTiming:true,uaMismatch:true,baseRisk:6}); await delay(220); }
   await delay(400);
-  handleRequest({label:'HF Swarm · Agent 1 — cred grab',origin:agents[0],ua:'EvalAgent/1.0',ep:'secrets',method:'GET',campaign:camp,seqIndex:-1,roboticTiming:true,uaMismatch:true,baseRisk:4});
+  handleRequest({label:'Group attack · Unauthorized AI bot 1 grabs secrets',origin:agents[0],ua:'bot',ep:'secrets',method:'GET',campaign:camp,seqIndex:-1,roboticTiming:true,uaMismatch:true,baseRisk:4});
 }
 async function launchStuffing(){
-  log('[attacker] credential stuffing started — cycling passwords at /token','r');
   var camp='stuff-'+hashStr(Date.now()+'').slice(0,4);
-  for(var i=0;i<6;i++){ handleRequest({label:'Cred Stuffing · try '+(i+1)+'/6',origin:'91.108.7.44',ua:'python-requests/2.31',ep:'token',method:'POST',campaign:camp,seqIndex:-1,fastTiming:true,baseRisk:4}); await delay(260); }
+  for(var i=0;i<6;i++){ handleRequest({label:'Fast password guessing · Try '+(i+1)+' of 6',origin:'One unauthorized AI bot (address 91.108.7.44)',ua:'bot',ep:'token',method:'POST',campaign:camp,seqIndex:-1,fastTiming:true,baseRisk:4}); await delay(260); }
 }
 async function launchProbe(){
-  log('[attacker] lone smart probe — slow, correct order, robotic timing','');
   var camp='probe-'+hashStr(Date.now()+'').slice(0,4);
   await seq([
-    {label:'Lone Probe',origin:'45.155.22.9',ua:'Mozilla/5.0 (claimed)',ep:'wellknown',method:'GET',campaign:camp,seqIndex:0,didDiscovery:true,roboticTiming:true,uaMismatch:true,gap:900},
-    {label:'Lone Probe',origin:'45.155.22.9',ua:'Mozilla/5.0 (claimed)',ep:'authorize',method:'GET',campaign:camp,seqIndex:1,didDiscovery:true,didAuthorize:true,roboticTiming:true,uaMismatch:true,gap:900},
-    {label:'Lone Probe',origin:'45.155.22.9',ua:'Mozilla/5.0 (claimed)',ep:'token',method:'POST',campaign:camp,seqIndex:2,didDiscovery:true,didAuthorize:true,roboticTiming:true,uaMismatch:true}
+    {label:'Sneaky slow unauthorized AI bot',origin:'One unauthorized AI bot (address 45.155.22.9)',ua:'bot',ep:'wellknown',method:'GET',campaign:camp,seqIndex:0,didDiscovery:true,roboticTiming:true,uaMismatch:true,gap:900},
+    {label:'Sneaky slow unauthorized AI bot',origin:'One unauthorized AI bot (address 45.155.22.9)',ua:'bot',ep:'authorize',method:'GET',campaign:camp,seqIndex:1,didDiscovery:true,didAuthorize:true,roboticTiming:true,uaMismatch:true,gap:900},
+    {label:'Sneaky slow unauthorized AI bot',origin:'One unauthorized AI bot (address 45.155.22.9)',ua:'bot',ep:'token',method:'POST',campaign:camp,seqIndex:2,didDiscovery:true,didAuthorize:true,roboticTiming:true,uaMismatch:true}
   ]);
 }
 async function launchLdap(){
-  log('[attacker] LDAP enumeration sweep','');
   var camp='ldap-'+hashStr(Date.now()+'').slice(0,4);
-  for(var i=0;i<4;i++){ handleRequest({label:'LDAP Enum · user '+(i+1),origin:'103.44.18.7',ua:'ldapsearch/2.6',ep:'ldap',method:'LDAP',campaign:camp,seqIndex:-1,fastTiming:i>1}); await delay(420); }
+  for(var i=0;i<4;i++){ handleRequest({label:'Snooping for user names · '+(i+1)+' of 4',origin:'One unauthorized AI bot (address 103.44.18.7)',ua:'bot',ep:'ldap',method:'LDAP',campaign:camp,seqIndex:-1,fastTiming:i>1}); await delay(420); }
 }
 async function launchLegit(){
-  log('[user] legit OIDC login — human timing, full sequence','g');
   await seq([
-    {label:'Legit User',origin:'72.14.199.8 (your network)',ua:'Safari / iPhone',ep:'wellknown',method:'GET',campaign:null,seqIndex:0,didDiscovery:true,legit:true,gap:1100},
-    {label:'Legit User',origin:'72.14.199.8 (your network)',ua:'Safari / iPhone',ep:'authorize',method:'GET',campaign:null,seqIndex:1,didDiscovery:true,didAuthorize:true,legit:true,gap:1500},
-    {label:'Legit User',origin:'72.14.199.8 (your network)',ua:'Safari / iPhone',ep:'token',method:'POST',campaign:null,seqIndex:2,didDiscovery:true,didAuthorize:true,legit:true,gap:900},
-    {label:'Legit User',origin:'72.14.199.8 (your network)',ua:'Safari / iPhone',ep:'userinfo',method:'GET',campaign:null,seqIndex:3,didDiscovery:true,didAuthorize:true,legit:true}
+    {label:'Normal person',origin:'Your phone / home internet',ua:'phone',ep:'wellknown',method:'GET',campaign:null,seqIndex:0,didDiscovery:true,legit:true,gap:1100},
+    {label:'Normal person',origin:'Your phone / home internet',ua:'phone',ep:'authorize',method:'GET',campaign:null,seqIndex:1,didDiscovery:true,didAuthorize:true,legit:true,gap:1500},
+    {label:'Normal person',origin:'Your phone / home internet',ua:'phone',ep:'token',method:'POST',campaign:null,seqIndex:2,didDiscovery:true,didAuthorize:true,legit:true,gap:900},
+    {label:'Normal person',origin:'Your phone / home internet',ua:'phone',ep:'userinfo',method:'GET',campaign:null,seqIndex:3,didDiscovery:true,didAuthorize:true,legit:true}
   ]);
 }
 $('legitForm').addEventListener('submit',function(e){e.preventDefault(); launchLegit();});
